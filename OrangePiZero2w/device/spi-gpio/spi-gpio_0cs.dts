@@ -1,0 +1,53 @@
+/* 
+Configure the GPIO from spidev
+with the gpio-spi driver:
+https://www.kernel.org/doc/Documentation/devicetree/bindings/spi/spi-gpio.txt
+https://elixir.bootlin.com/linux/v6.1.31/source/include/dt-bindings/gpio/gpio.h
+https://gist.github.com/BjoernSch/39d3bca950a3b025b806decc2b686bbc
+https://stackoverflow.com/questions/78905378/how-do-i-use-spi-gpio-driver-in-linux
+https://gist.github.com/BjoernSch/39d3bca950a3b025b806decc2b686bbc
+https://github.com/dev-null2019/orangepizero2w35tft/blob/main/joyit35a-overlay.dts < example of DTS without pre-definition of GPIO-IRQ
+https://forum.armbian.com/topic/44191-orangepi-zero-lts-ili9341-tft-lcd-and-later-orangepi-zero-3/
+https://github.com/raspberrypi/linux/issues/2169
+https://github.com/BjoernSch/dto-spi-gpio-wlanthermo
+
+https://github.com/torvalds/linux/blob/master/drivers/spi/spi-gpio.c
+https://www.kernel.org/doc/Documentation/spi/spidev
+https://linux-sunxi.org/SPIdev
+https://github.com/Xilinx/linux-xlnx/blob/master/tools/spi/spidev_fdx.c
+
+*/
+
+/dts-v1/;
+/plugin/;
+
+
+/ {
+    compatible = "allwinner,sun50i-h616";
+
+    fragment@0 {
+        target-path = "/";
+        __overlay__ {
+            my-spi-gpio0 {
+                compatible = "spi-gpio";
+                #address-cells = <0x1>;
+                #size-cells = <0>;
+                ranges;
+                
+		sck-gpios  = <&pio 8 15 0>; /* PI15 */
+		miso-gpios = <&pio 8 2 0>;  /* PI2  */
+		mosi-gpios = <&pio 8 0 0>;  /* PI0  */
+                num-chipselects = <0>;
+                status = "okay";
+
+		spidev: spidev@0{
+                                status = "okay";
+                                compatible = "spidev";
+                                reg = <0>;      
+                                spi-max-frequency = <1000000>;
+                };
+
+            };
+        };
+    };
+};

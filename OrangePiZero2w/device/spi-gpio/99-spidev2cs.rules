@@ -1,0 +1,2 @@
+ACTION=="add", SUBSYSTEM=="spi", KERNEL=="spi1.0", RUN+="/bin/sh -c 'echo spidev > /sys/bus/spi/devices/spi1.0/driver_override'", RUN+="/bin/sh -c 'echo spi1.0 > /sys/bus/spi/drivers/spidev/bind'"
+ACTION=="add", SUBSYSTEM=="spi", KERNEL=="spi1.1", RUN+="/bin/sh -c 'echo spidev > /sys/bus/spi/devices/spi1.1/driver_override'", RUN+="/bin/sh -c 'echo spi1.1 > /sys/bus/spi/drivers/spidev/bind'"
