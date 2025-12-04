@@ -15,25 +15,85 @@ Product Features:
 
 - Powerful data processing capabilities, MCU clock speed up to 580MHz
 
-- Hardware Interfaces: UART, IIC, PWM, GPIO, SPI, i2s
+- HLK-7688A module Memory: DDR2 - 128MB, SPI Flash  - 32MB
+
+- Hardware Interfaces: UART, IIC, PWM, GPIO, SPI, i2s (SPI/SD-XC/eMMC)
+
+- Operating Voltage: 3.3V
+
+- GPIO Drive Capability: 4mA
+
+- Operating Current: ~200mA
+
+- Operating Temperature: -40c ~ +80c
 
 - Compatible with IEEE 802.11 b/g/n, IEEE 802.3 & IEEE 802.3u
 
 - Single-frequency 1T1R mode, data rate up to 150Mbps, Range: 2.412GHz-2.484GHz
 
-- Supports STA/AP/AP+STA working modes
-
-- Five 10/100M auto-sensing network ports
-
 - Supports multiple encryption methods: WEP64/128, TKIP, AES, WPA/WPA2, WAPI
 
 - Supports QoS, WMM, WMM-PS
 
+- Supports STA/AP/AP+STA working modes  (Support 16 Multiple BSSID)
+
+- Five 10/100M auto-sensing ETH network ports
+
 - Supports multiple operating systems: Linux 2.6.36 SDK, OpenWrt 14.07
 
+- Network Protocol: IPv4, TCP/UDP
+
+- Maximum Connections: 20~30 (TCP/UDP)
+
+- Firmware Upgrade: Wireless Upgrade, Serial Port Upgrade, Ethernet Port Upgrade
 
 
-PS:
+
+
+Наш вариант, платка:
+![photo](jpg/hlk-7688a.jpg)
+
+![photo](jpg/hlk-7688a%20back.jpg)
+
+Припаял:
+![photo](jpg/hlk-7688a%20maket1.jpg)
+
+
+добавить себя в группу (для доступа к /dev/ttyUSB0)
+
+root@fedora:~# usermod -a -G dialout user
+
+перезайти в сесию
+
+подключится, платка usb-uart к hlk-7688a (нулевой UART)
+
+![photo](jpg/hlk-7688a%20maket2.jpg)
+
+user@fedora:~# picocom -b 57600 /dev/ttyUSB0
+
+припаял HR911105A к первой группе и обновил прошивку tftp через меню u-boot (прошивка openwrt-24.10.4-ramips-mt76x8-hilink_hlk-7688a-squashfs-sysupgrade.bin)
+
+потом перепаял HR911105A на четвертую группу, не знаю, не пробовал, пошла ли бы прошивка с четвёртой группы...
+
+надо подключать Ethernet HR911105A надо к четвертой группе, это соответствует мосту bri-lan
+
+который в зависимости от прошивки может иметь статический адрес 192.168.1.1
+
+я перенастроил на DHCP Client (подключив к ноуту через Web интрфейс), пока мне так удобнее
+
+припаял USB коннектор, вставляю флешку - видит... там ещё надо поставить пакеты для монтирования разных файловых систем...
+
+
+
+
+
+
+
+
+
+
+
+# PS:
 
 есть [цикл статей](https://radiohlam.ru/tag/omega2/) про другой модуль , но на том-же MT7688
 
@@ -57,35 +117,9 @@ PS:
 
 [Переключение «налету» между LAN-портами и SD-картой в микрокомпьютерах на базе SOC MT7688AN](https://radiohlam.ru/mt7688_lan/#more-4908)
 
+# PS2:
 
-Наш вариант, платка:
-![photo](jpg/hlk-7688a.jpg)
-
-![photo](jpg/hlk-7688a%20back.jpg)
-
-Припаял:
-![photo](jpg/hlk-7688a%20maket1.jpg)
-
-
-добавить себя в группу (для доступа к /dev/ttyUSB0)
-
-root@fedora:~# usermod -a -G dialout user
-
-перезайти в сесию
-
-подключится, платка usb-uart к hlk-7688a
-
-![photo](jpg/hlk-7688a%20maket2.jpg)
-
-user@fedora:~# picocom -b 57600 /dev/ttyUSB0
-
-подключать Ethernet HR911105A надо к четвертой группе, это соответствует мосту bri-lan
-
-который в зависимости от прошивки может иметь статический адрес 192.168.1.1
-
-это надо перенастроить на DHCP Client
-
-ну, это я про своё...
-
-
+[Hi-Link HLK-7688A [OpenWrt] – обсуждение](https://4pda.to/forum/index.php?showtopic=966932)
+                                                         
+[Модернизированные загрузчики UBOOT для маршрутизаторов](https://4pda.to/forum/index.php?showtopic=678446)
 

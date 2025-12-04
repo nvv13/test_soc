@@ -10,7 +10,8 @@
 
 1) Скачиваем исходники
 Код:
-git clone git://github.com/openwrt/openwrt.git -b v18.06.2
+git clone git://github.com/openwrt/openwrt.git -b v24.10.4
+
 2) Подготовка к сборке
 Код:
 cd openwrt
