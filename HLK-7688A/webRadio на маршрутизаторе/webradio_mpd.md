@@ -262,7 +262,7 @@ config include
 
 
 opkg update
-opkg install curl mpd-mini mpc kmod-usb-core kmod-usb-audio kmod-sound-core alsa-utils kmod-usb-hid triggerhappy
+opkg install curl mpd-full mpc kmod-usb-core kmod-usb-audio kmod-sound-core alsa-utils kmod-usb-hid triggerhappy
 wget -U "Mozilla/5.0" -O "/tmp/fw.tar.gz" "http://fw.wifiradio.su/download/wifiradio.su_full.tar.gz"
 tar -xvzf "/tmp/fw.tar.gz" -C "/"
 chmod -R 755 /www/cgi-bin/
@@ -271,6 +271,17 @@ rm -r -f "/tmp/fw.tar.gz"
 reboot
 
 После выполнения этих команд роутер перезагрузится и заиграет радио.
+
+так вот это не заработало
+пока не добавил пользователя mpd в группу audio 
+  (не могло открыть устройство hw:0,0)
+для добавления mpd в группу audio, редактируем файл 
+/etc/group
+  строчка
+audio:x:29:
+  отредактировать так
+audio:x:29:mpd 
+
 ~~~
 
 
