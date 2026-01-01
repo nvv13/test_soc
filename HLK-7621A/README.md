@@ -40,4 +40,9 @@ HW QoS
 	- 2Gbps wired speed.
 HW Crypto
 Deliver 400~500 Mbps IPSec throughput
+Green
+	-Intelligent Clock Scaling (exclusive)
+	-DDR2/3: ODT off, Self-refresh mode
+Firmware: Linux 2.6 SDK, OpenWRT
+RGMII iNIC Driver: Linux 2.4/2.6
 ~~~
