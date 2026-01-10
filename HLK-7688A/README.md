@@ -71,7 +71,15 @@ root@fedora:~# usermod -a -G dialout user
 
 user@fedora:~# picocom -b 57600 /dev/ttyUSB0
 
-припаял HR911105A к первой группе и обновил прошивку tftp через меню u-boot (прошивка openwrt-24.10.4-ramips-mt76x8-hilink_hlk-7688a-squashfs-sysupgrade.bin)
+припаял HR911105A к первой группе и обновил прошивку tftp через меню u-boot 
+
+~~~
+прошивка openwrt-24.10.4-ramips-mt76x8-hilink_hlk-7688a-squashfs-sysupgrade.bin
+ложим в /var/lib/tftpboot
+только переименовать в короткое имя надо
+и запустить tftp
+$ service tftp start
+~~~
 
 потом перепаял HR911105A на четвертую группу, не знаю, не пробовал, пошла ли бы прошивка с четвёртой группы...
 
