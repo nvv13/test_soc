@@ -46,3 +46,42 @@ Green
 Firmware: Linux 2.6 SDK, OpenWRT
 RGMII iNIC Driver: Linux 2.4/2.6
 ~~~
+
+
+
+подключится, платка usb-uart к hlk-7621a (нулевой UART)
+
+user@fedora:~# picocom -b 57600 /dev/ttyUSB0
+
+припаял HR911105A и обновил прошивку tftp через меню u-boot 
+
+~~~
+особенность в том что [HR911105A](doc/HR911105A.pdf) - это 100 мегабитный коннектор с встроенным трансформатором,
+ а нужен гигабитный - но его у меня небыло
+
+просто припаял к 
+	36 ESW_TXVP_A_P1Port #1 MDI Transceivers - к выводу HR911105A 1 (TD+)
+	37 ESW_TXVN_A_P1Port #1 MDI Transceivers - к выводу HR911105A 2 (TD-)
+	38 ESW_TXVP_B_P1Port #1 MDI Transceivers - к выводу HR911105A 3 (RD+)
+	39 ESW_TXVN_B_P1Port #1 MDI Transceivers - к выводу HR911105A 6 (RD-)
+
+эти контакты не трогал
+	40 ESW_TXVP_C_P1Port #1 MDI Transceivers
+	41 ESW_TXVN_C_P1Port #1 MDI Transceivers
+	42 ESW_TXVP_D_P1Port #1 MDI Transceivers
+	43 ESW_TXVN_D_P1Port #1 MDI Transceivers
+
+
+прошивка openwrt-24.10.5-ramips-mt7621-hilink_hlk-7621a-evb-squashfs-sysupgrade.bin
+ложим в /var/lib/tftpboot
+только переименовать в короткое имя надо
+и запустить tftp
+$ service tftp start
+~~~
+
+который в зависимости от прошивки может иметь статический адрес 192.168.1.1
+
+я перенастроил на DHCP Client br-lan, пока мне так удобнее
+
+и настроить постоянный MAC адрес для br-lan
+
