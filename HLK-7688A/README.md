@@ -109,6 +109,7 @@ root@OpenWrt:~# picocom --echo -b 115200 /dev/ttyUSB0
 [hwinfo](openwrt/hwinfo.md)
 
 
+
 # PS:
 
 есть [цикл статей](https://radiohlam.ru/tag/omega2/) про другой модуль , но на том-же MT7688
