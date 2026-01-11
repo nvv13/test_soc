@@ -55,6 +55,7 @@ user@fedora:~# picocom -b 57600 /dev/ttyUSB0
 
 припаял HR911105A и обновил прошивку tftp через меню u-boot 
 
+
 ~~~
 особенность в том что [HR911105A](doc/HR911105A.pdf) - это 100 мегабитный коннектор с встроенным трансформатором,
  а нужен гигабитный - но его у меня небыло
@@ -84,6 +85,8 @@ $ service tftp start
 я перенастроил на DHCP Client br-lan, пока мне так удобнее
 
 и настроить постоянный MAC адрес для br-lan
+
+![photo](jpg/HLK-7621_add_fast_eth.jpg)
 
 [hwinfo](openwrt/hwinfo.md)
 
