@@ -96,14 +96,16 @@ $ service tftp start
 [hwinfo](openwrt/hwinfo7688.md)
 
 
-~~~
 
+поставил модули для внешнего переходника usb-uart (и gpio возможно управлять)
+
+есть у меня пере таких платок
+~~~
 root@OpenWrt:~# opkg find kmod-usb-serial*
 root@OpenWrt:~# opkg install kmod-usb-serial-cp210x
 root@OpenWrt:~# opkg install kmod-usb-serial-ch341 kmod-usb-serial-ftdi
 root@OpenWrt:~# opkg install picocom
 root@OpenWrt:~# picocom --echo -b 115200 /dev/ttyUSB0
-
 ~~~
 
 
