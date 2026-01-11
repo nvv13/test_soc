@@ -85,3 +85,5 @@ $ service tftp start
 
 и настроить постоянный MAC адрес для br-lan
 
+[hwinfo](openwrt/hwinfo.md)
+
