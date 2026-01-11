@@ -88,5 +88,5 @@ $ service tftp start
 
 ![photo](jpg/HLK-7621_add_fast_eth.jpg)
 
-[hwinfo](openwrt/hwinfo.md)
+[hwinfo](openwrt/hwinfo7621.md)
 

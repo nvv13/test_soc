@@ -93,7 +93,7 @@ $ service tftp start
 
 припаял USB коннектор, вставляю флешку - видит... там ещё надо поставить пакеты для монтирования разных файловых систем...
 
-[hwinfo](openwrt/hwinfo.md)
+[hwinfo](openwrt/hwinfo7688.md)
 
 
 ~~~
