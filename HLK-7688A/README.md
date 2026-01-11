@@ -93,6 +93,7 @@ $ service tftp start
 
 припаял USB коннектор, вставляю флешку - видит... там ещё надо поставить пакеты для монтирования разных файловых систем...
 
+[hwinfo](openwrt/hwinfo.md)
 
 
 ~~~
@@ -106,7 +107,6 @@ root@OpenWrt:~# picocom --echo -b 115200 /dev/ttyUSB0
 ~~~
 
 
-[hwinfo](openwrt/hwinfo.md)
 
 
 
