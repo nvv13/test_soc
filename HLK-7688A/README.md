@@ -95,7 +95,6 @@ $ service tftp start
 
 
 
-
 ~~~
 
 root@OpenWrt:~# opkg find kmod-usb-serial*
@@ -106,6 +105,8 @@ root@OpenWrt:~# picocom --echo -b 115200 /dev/ttyUSB0
 
 ~~~
 
+
+[hwinfo](openwrt/hwinfo.md)
 
 
 # PS:
