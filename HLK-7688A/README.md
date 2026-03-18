@@ -53,10 +53,10 @@ Product Features:
 Наш вариант, платка:
 ![photo](jpg/hlk-7688a.jpg)
 
-![photo](jpg/hlk-7688a%20back.jpg)
+![photo](jpg/hlk-7688a_back.jpg)
 
 Припаял:
-![photo](jpg/hlk-7688a%20maket1.jpg)
+![photo](jpg/hlk-7688a_maket1.jpg)
 
 
 добавить себя в группу (для доступа к /dev/ttyUSB0)
@@ -67,7 +67,7 @@ root@fedora:~# usermod -a -G dialout user
 
 подключится, платка usb-uart к hlk-7688a (нулевой UART)
 
-![photo](jpg/hlk-7688a%20maket2.jpg)
+![photo](jpg/hlk-7688a_maket2.jpg)
 
 user@fedora:~# picocom -b 57600 /dev/ttyUSB0
 
@@ -116,25 +116,25 @@ root@OpenWrt:~# picocom --echo -b 115200 /dev/ttyUSB0
 
 есть [цикл статей](https://radiohlam.ru/tag/omega2/) про другой модуль , но на том-же MT7688
 
-[Микрокомпьютер Omega2. Часть 1. Первое знакомство.](https://radiohlam.ru/omega2_1/#more-2867)
+[Микрокомпьютер Omega2. Часть 1. Первое знакомство.](https://radiohlam.ru/omega2_1)
 
-[Микрокомпьютер Omega2. Часть 2. Использование GPIO.](https://radiohlam.ru/omega2_2/#more-2972)
+[Микрокомпьютер Omega2. Часть 2. Использование GPIO.](https://radiohlam.ru/omega2_2)
 
-[Микрокомпьютер Omega2. Часть 3. Док-плата](https://radiohlam.ru/omega2_3/#more-2994)
+[Микрокомпьютер Omega2. Часть 3. Док-плата](https://radiohlam.ru/omega2_3)
 
-[Микрокомпьютер Omega2. Часть 4. Работа с файлами (Midnight Commander, SCP, FTP).](https://radiohlam.ru/omega2_4/#more-3002)
+[Микрокомпьютер Omega2. Часть 4. Работа с файлами (Midnight Commander, SCP, FTP).](https://radiohlam.ru/omega2_4)
 
-[Микрокомпьютер Omega2. Часть 5. Работа с USB flash-дисками](https://radiohlam.ru/omega2_5/#more-3014)
+[Микрокомпьютер Omega2. Часть 5. Работа с USB flash-дисками](https://radiohlam.ru/omega2_5)
 
-[Микрокомпьютер Omega2. Часть 6. Установка, настройка и использование php для интерактивного взаимодействия](https://radiohlam.ru/omega2_6/#more-3023)
+[Микрокомпьютер Omega2. Часть 6. Установка, настройка и использование php для интерактивного взаимодействия](https://radiohlam.ru/omega2_6)
 
-[Микрокомпьютер Omega2. Часть 7. Выполнение задач по расписанию с помощью планировщика Cron](https://radiohlam.ru/omega2_7/#more-3073)
+[Микрокомпьютер Omega2. Часть 7. Выполнение задач по расписанию с помощью планировщика Cron](https://radiohlam.ru/omega2_7)
 
-[Микрокомпьютер Omega2. Часть 8. Подключаем проводной Ethernet](https://radiohlam.ru/omega2_8/#more-3107)
+[Микрокомпьютер Omega2. Часть 8. Подключаем проводной Ethernet](https://radiohlam.ru/omega2_8)
 
-[Микрокомпьютер Omega2. Часть 9. Сборка альтернативной прошивки на базе OpenWRT](https://radiohlam.ru/omega2_9/#more-3149)
+[Микрокомпьютер Omega2. Часть 9. Сборка альтернативной прошивки на базе OpenWRT](https://radiohlam.ru/omega2_9)
 
-[Переключение «налету» между LAN-портами и SD-картой в микрокомпьютерах на базе SOC MT7688AN](https://radiohlam.ru/mt7688_lan/#more-4908)
+[Переключение «налету» между LAN-портами и SD-картой в микрокомпьютерах на базе SOC MT7688AN](https://radiohlam.ru/mt7688_lan)
 
 # PS2:
 

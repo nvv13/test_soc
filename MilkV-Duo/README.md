@@ -8,10 +8,10 @@
 
 
 milkv-duo and milkv-duo 256m front
-![photo](jpg/milkv-duo%20front.jpg)
+![photo](jpg/milkv-duo-front.jpg)
 
 milkv-duo and milkv-duo 256m back
-![photo](jpg/milkv-duo%20back.jpg)
+![photo](jpg/milkv-duo-back.jpg)
 
 
 
