@@ -5,6 +5,8 @@ Orange Pi Zero 2W WiFi Bluetooth SBC одноплатный компьютер
 
 [Orange Pi Zero 2W](http://www.orangepi.org/html/hardWare/computerAndMicrocontrollers/details/Orange-Pi-Zero-2W.html)
 
+[wiki](https://linux-sunxi.org/Xunlong_Orange_Pi_Zero2W)
+
 [download](http://www.orangepi.org/html/hardWare/computerAndMicrocontrollers/service-and-support/Orange-Pi-Zero-2W.html)
 ~~~
 		Hardware Parameters
@@ -34,7 +36,7 @@ Weight	12.5g
 
 мини hdmi кабель, type-c хабик, флешка и радиаторы, всё это Я подготовил заранее.
 
-поставил debian с оф. сайта orange pi.  -  kernel 6.1.31
+поставил debian с оф. сайта orange pi.  -  [kernel 6.1.31](https://drive.google.com/drive/folders/1EH8mMQbgh4IgtOWKgg4nmRuZ57Gvfp9X)
 
 проблема wifi5 решение
 
@@ -68,4 +70,11 @@ $ picocom -echo -b 115200 /dev/ttyS5
 
 
 ***********************************
+
+PS:
+
+[Armbian](https://www.armbian.com/orange-pi-zero-2w/)
+
+[orangepi-build](https://github.com/orangepi-xunlong/orangepi-build)
+
 
