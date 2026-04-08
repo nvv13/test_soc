@@ -16,12 +16,18 @@ SOURCE: [https://github.com/MathiasStadler/orange-pi-zero-boot-from-spi](https:/
 
  
 
-I spent the whole day trying to boot without a microSD, and I finally got it, using the Orange Pi Zero SPI boot tutorial, with a few adjustments.
+I spent the whole day trying to boot without a microSD,
+ and I finally got it, using the Orange Pi Zero SPI boot tutorial, with a few adjustments.
 
  
 
-First of all, you’ll need a microSD card. I used this Armbian version Armbian_24.11.1_Orangepizero2_noble_current_6.6.62_minimal.img.xz
-
+First of all, you’ll need a microSD card.
+ I used this 
+      ?Armbian version Armbian_24.11.1_Orangepizero2_noble_current_6.6.62_minimal.img.xz
+      
+[Armbian_community_26.2.0-trunk.668_Orangepizero2w_trixie_current_6.18.21_minimal.img.xz](https://www.armbian.com/orange-pi-zero-2w/)
+       https://dl.armbian.com/orangepizero2w/Trixie_current_minimal
+      [Debian Linux 6.1 kernel version](https://drive.google.com/drive/folders/1EH8mMQbgh4IgtOWKgg4nmRuZ57Gvfp9X)
  
 
 Once the system has booted from the microSD:
@@ -51,10 +57,16 @@ If you see a device at /dev/mtd0 or /dev/mtd/by-name/spi0.0, you can flash U-Boo
  
 
 # Create an empty image
-sudo dd if=/dev/zero count=2048 bs=1K | tr '\000' '\377' &gt; spi.img
+sudo dd if=/dev/zero count=2048 bs=1K | tr '\000' '\377' > spi.img
 
 # Write U-Boot to the image
-sudo dd if=/usr/lib/linux-u-boot-current-orangepizero2/u-boot-sunxi-with-spl.bin of=spi.img bs=1k conv=notrunc
+?sudo dd if=/usr/lib/linux-u-boot-current-orangepizero2w/u-boot-sunxi-with-spl.bin of=spi.img bs=1k conv=notrunc
+sudo dd if=/usr/lib/linux-u-boot-next-orangepizero2w_1.0.0_arm64/u-boot-sunxi-with-spl.bin of=spi.img bs=1k conv=notrunc
+
+# install mtd-utils
+sudo apt install mtd-utils
+# Read flash orig
+sudo dd if=/dev/mtd0 of=spi_orig.img bs=1K
 
 # Flash the image to SPI
 sudo flashcp -v spi.img /dev/mtd0 
@@ -63,7 +75,7 @@ sudo flashcp -v spi.img /dev/mtd0
 
 Now it's time to plug in the USB drive (SSD or flash drive):
 
-# Install Armbian to the USB stick, pendrive or SSD
+# Install Armbian (or Debian) to the USB stick, pendrive or SSD
 # Follow the instructions in the menu, default values are usually fine
 # DON'T REBOOT the device after this step
 sudo nand-sata-install
@@ -76,7 +88,8 @@ sudo cp -a /boot /mnt
 
 # Now edit /mnt/boot/boot.cmd and set the correct root device:
 
-setenv rootdev "/dev/sda1"
+?setenv rootdev "/dev/sda1"
+ export rootdev="/dev/sda1"
 
 #Then generate the new boot.scr
 
@@ -85,10 +98,15 @@ sudo mkimage -C none -A arm -T script -d /mnt/boot/boot.cmd /mnt/boot/boot.scr
 #Finally, edit armbianEnv.txt to update the rootdev by UUID:
 
 blkid /dev/sda1
+  out example /dev/sda1: UUID="b8946124-f7af-4110-bd5b-daece088f450" BLOCK_SIZE="4096" TYPE="ext4" PARTUUID="45f2b6d1-01"
+ /dev/sda1: UUID="f23f2a91-7a49-47ea-9201-71d8f201ffe4" BLOCK_SIZE="4096" TYPE="ext4" PARTLABEL="primary" 
+      PARTUUID="621b0252-8628-4f60-9856-45757fd49fbe"
+ /dev/sda1: UUID="1e995177-0d0a-4d7b-a015-1811f6b34ce4" BLOCK_SIZE="4096" TYPE="ext4" PARTUUID="a1f09ac8-01"
 
 #Copy the UUID and update this line rootdev=UUID=your-usb-uuid
 
-nano /mnt/boot/armbianEnv.txt
+?nano /mnt/boot/armbianEnv.txt
+nano /mnt/boot/orangepiEnv.txt
  
 
 Now the moment of truth:
@@ -118,7 +136,8 @@ Validating
 Опубликовано: 30 июля 2025 (изменено)
 Thanks a lot, It works!
 
-I've bought the orange pi zero 2 rencently, with also the board version v1.5, but in my case it seems that "pull PC5 to GND" is still needed, which is written at wiki:
+I've bought the orange pi zero 2 rencently, with also the board version v1.5,
+ but in my case it seems that "pull PC5 to GND" is still needed, which is written at wiki:
 
   Quote
 https://linux-sunxi.org/Xunlong_Orange_Pi_Zero2#SPI_booting
@@ -131,7 +150,9 @@ Armbian_25.5.1_Orangepizero2_noble_current_6.12.23_minimal.img.xz
 
 So it may have some variant?
 
-Whatever, as it says: "pull PC5 to GND", I used a 2pin jumper(header) to shortcut the pin13(PC5) and pin14 rather than pin13 and pin9, since they are next to each other, and it works! 🙂 So I posted here in case someone runs into the same issue.
+Whatever, as it says: "pull PC5 to GND",
+ I used a 2pin jumper(header) to shortcut the pin13(PC5) and pin14 rather than pin13 and pin9,
+ since they are next to each other, and it works! 🙂 So I posted here in case someone runs into the same issue.
 
 Изменено 30 июля 2025 пользователем karin
 
