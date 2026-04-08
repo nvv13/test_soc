@@ -1,14 +1,14 @@
 
-это не попробовано, но собираюсь
+попробавал для дистров (v1) (v2)
 
+(v1) - работает
+
+-------------------------------------
 
 
 SPI Boot [for USB or PXE without MicroSD]
 
 [https://forum.armbian.com/topic/51044-spi-boot-for-usb-or-pxe-without-microsd/](https://forum.armbian.com/topic/51044-spi-boot-for-usb-or-pxe-without-microsd/)
-
-
-
 
 
 Опубликовано: 11 апреля 2025
@@ -23,11 +23,9 @@ I spent the whole day trying to boot without a microSD,
 
 First of all, you’ll need a microSD card.
  I used this 
-      ?Armbian version Armbian_24.11.1_Orangepizero2_noble_current_6.6.62_minimal.img.xz
+   (v1)[Armbian_community_26.2.0-trunk.668_Orangepizero2w_trixie_current_6.18.21_minimal.img.xz](https://www.armbian.com/orange-pi-zero-2w/)
       
-[Armbian_community_26.2.0-trunk.668_Orangepizero2w_trixie_current_6.18.21_minimal.img.xz](https://www.armbian.com/orange-pi-zero-2w/)
-       https://dl.armbian.com/orangepizero2w/Trixie_current_minimal
-      [Debian Linux 6.1 kernel version](https://drive.google.com/drive/folders/1EH8mMQbgh4IgtOWKgg4nmRuZ57Gvfp9X)
+   (v2)[Debian Linux 6.1 kernel version](https://drive.google.com/drive/folders/1EH8mMQbgh4IgtOWKgg4nmRuZ57Gvfp9X)
  
 
 Once the system has booted from the microSD:
@@ -60,8 +58,8 @@ If you see a device at /dev/mtd0 or /dev/mtd/by-name/spi0.0, you can flash U-Boo
 sudo dd if=/dev/zero count=2048 bs=1K | tr '\000' '\377' > spi.img
 
 # Write U-Boot to the image
-?sudo dd if=/usr/lib/linux-u-boot-current-orangepizero2w/u-boot-sunxi-with-spl.bin of=spi.img bs=1k conv=notrunc
-sudo dd if=/usr/lib/linux-u-boot-next-orangepizero2w_1.0.0_arm64/u-boot-sunxi-with-spl.bin of=spi.img bs=1k conv=notrunc
+(v1)sudo dd if=/usr/lib/linux-u-boot-current-orangepizero2w/u-boot-sunxi-with-spl.bin of=spi.img bs=1k conv=notrunc
+(v2)sudo dd if=/usr/lib/linux-u-boot-next-orangepizero2w_1.0.0_arm64/u-boot-sunxi-with-spl.bin of=spi.img bs=1k conv=notrunc
 
 # install mtd-utils
 sudo apt install mtd-utils
@@ -88,8 +86,8 @@ sudo cp -a /boot /mnt
 
 # Now edit /mnt/boot/boot.cmd and set the correct root device:
 
-?setenv rootdev "/dev/sda1"
- export rootdev="/dev/sda1"
+(v1)setenv rootdev "/dev/sda1"
+(v2)export rootdev="/dev/sda1"
 
 #Then generate the new boot.scr
 
@@ -98,15 +96,12 @@ sudo mkimage -C none -A arm -T script -d /mnt/boot/boot.cmd /mnt/boot/boot.scr
 #Finally, edit armbianEnv.txt to update the rootdev by UUID:
 
 blkid /dev/sda1
-  out example /dev/sda1: UUID="b8946124-f7af-4110-bd5b-daece088f450" BLOCK_SIZE="4096" TYPE="ext4" PARTUUID="45f2b6d1-01"
- /dev/sda1: UUID="f23f2a91-7a49-47ea-9201-71d8f201ffe4" BLOCK_SIZE="4096" TYPE="ext4" PARTLABEL="primary" 
-      PARTUUID="621b0252-8628-4f60-9856-45757fd49fbe"
- /dev/sda1: UUID="1e995177-0d0a-4d7b-a015-1811f6b34ce4" BLOCK_SIZE="4096" TYPE="ext4" PARTUUID="a1f09ac8-01"
+
 
 #Copy the UUID and update this line rootdev=UUID=your-usb-uuid
 
-?nano /mnt/boot/armbianEnv.txt
-nano /mnt/boot/orangepiEnv.txt
+(v1)nano /mnt/boot/armbianEnv.txt
+(v2)nano /mnt/boot/orangepiEnv.txt
  
 
 Now the moment of truth:
@@ -130,6 +125,10 @@ Want an ad-free browsing experience? Install Pi-hole on your SBC and enjoy a fas
 
 
 
+
+
+----------------------------------------------------------------------------
+Это не потребовалось:
 
 karin
 Validating
@@ -165,3 +164,5 @@ Whatever, as it says: "pull PC5 to GND",
  Дополнительно: если используется внешняя память, убедитесь в совместимости и правильной прошивке чипа.
 возможно Zero 2w это не касается!
 ~~~
+
+----------------------------------------------------------------------------
