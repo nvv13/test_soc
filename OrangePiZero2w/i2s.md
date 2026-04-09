@@ -99,6 +99,11 @@ audio_output {
 	device		"hw:1,0"	# optional
 	mixer_type	"software"	# optional
 
+если звук "заторможен" то добавить
+    format        "44100:16:2"      # <--- РЕШЕНИЕ: Явно задаем частоту 44.1 кГц, 16 бит, стерео
+    auto_resample "no"              # Отключаем авто-передискретизацию
+    auto_format   "no"              # Отключаем авто-подбор формата
+
 ~~~
 
 
