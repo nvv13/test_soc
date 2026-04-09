@@ -44,7 +44,7 @@ H_I2S3_DIN0   -> PH9 -> 26
 
 берем файл sun50i-h616-i2s3_v2.dts
 
-добовляем, комманда:
+добавляем, комманда:
 
 ~~~
 # orangepi-add-overlay sun50i-h616-i2s3_v2.dts

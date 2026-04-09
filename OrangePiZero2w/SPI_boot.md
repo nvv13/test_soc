@@ -1,7 +1,14 @@
 
-попробавал для дистров (v1) (v2)
+попробавал для дистров 
+~~~
+(v1)Armbian_community_26.2.0
+(v2)Debian Linux 6.1 kernel
+(v3)Raspberry Pi OS
+(v4)ubuntu noble server linux6.1.31
+~~~
 
-(v1) - работает
+(v1) и (v4) - работает, (v4) - дистр удобнее 
+
 
 -------------------------------------
 
@@ -27,6 +34,10 @@ First of all, you’ll need a microSD card.
       
    (v2)[Debian Linux 6.1 kernel version](https://drive.google.com/drive/folders/1EH8mMQbgh4IgtOWKgg4nmRuZ57Gvfp9X)
  
+(v3)[Raspberry Pi OS](https://github.com/leeboby/raspberry-pi-os-images/releases/download/h618-20240711/Orangepizero2w_1.0.2_raspios_bullseye_server_linux6.1.31.7z)
+
+(v4)[ubuntu](https://drive.google.com/drive/folders/1g806xyPnVFyM8Dz_6wAWeoTzaDg3PH4Z)
+
 
 Once the system has booted from the microSD:
 
@@ -60,6 +71,7 @@ sudo dd if=/dev/zero count=2048 bs=1K | tr '\000' '\377' > spi.img
 # Write U-Boot to the image
 (v1)sudo dd if=/usr/lib/linux-u-boot-current-orangepizero2w/u-boot-sunxi-with-spl.bin of=spi.img bs=1k conv=notrunc
 (v2)sudo dd if=/usr/lib/linux-u-boot-next-orangepizero2w_1.0.0_arm64/u-boot-sunxi-with-spl.bin of=spi.img bs=1k conv=notrunc
+(v4)sudo dd if=/usr/lib/linux-u-boot-next-orangepizero2w_1.0.4_arm64/u-boot-sunxi-with-spl.bin of=spi.img bs=1k conv=notrunc
 
 # install mtd-utils
 sudo apt install mtd-utils
@@ -77,6 +89,13 @@ Now it's time to plug in the USB drive (SSD or flash drive):
 # Follow the instructions in the menu, default values are usually fine
 # DON'T REBOOT the device after this step
 sudo nand-sata-install
+
+
+
+Дальше всё не обязательно, всё работает и так - nand-sata-install всё сделает, выключаемся и вынимаем microSD карту...
+
+
+
 
 # Mount the USB stick
 sudo mount /dev/sda1 /mnt
