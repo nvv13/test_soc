@@ -41,15 +41,21 @@ First of all, you’ll need a microSD card.
 
 Once the system has booted from the microSD:
 
+~~~
 sudo apt update && sudo apt upgrade -y
 reboot
+~~~
 After the system reboots, we need to check if the SPI flash is detected:
 
+~~~
 cat /proc/mtd
 #It should return something like:
 dev:    size   erasesize  name
 mtd0: 00200000 00001000 "spi0.0"
+~~~
+
 #Double-check with:
+~~~
 ls -l /dev/mtd*
 #You should get something like:
 crw------- 1 root root 90, 0 Apr 10 19:34 /dev/mtd0 
@@ -59,6 +65,7 @@ brw-rw---- 1 root disk 31, 0 Apr 10 19:34 /dev/mtdblock0
 /dev/mtd/
 total 0 
 drwxr-xr-x 2 root root 60 Apr 10 19:34 by-name
+~~~
  
 
 If you see a device at /dev/mtd0 or /dev/mtd/by-name/spi0.0, you can flash U-Boot to the SPI.
@@ -66,20 +73,30 @@ If you see a device at /dev/mtd0 or /dev/mtd/by-name/spi0.0, you can flash U-Boo
  
 
 # Create an empty image
+~~~
 sudo dd if=/dev/zero count=2048 bs=1K | tr '\000' '\377' > spi.img
+~~~
 
 # Write U-Boot to the image
+~~~
 (v1)sudo dd if=/usr/lib/linux-u-boot-current-orangepizero2w/u-boot-sunxi-with-spl.bin of=spi.img bs=1k conv=notrunc
 (v2)sudo dd if=/usr/lib/linux-u-boot-next-orangepizero2w_1.0.0_arm64/u-boot-sunxi-with-spl.bin of=spi.img bs=1k conv=notrunc
 (v4)sudo dd if=/usr/lib/linux-u-boot-next-orangepizero2w_1.0.4_arm64/u-boot-sunxi-with-spl.bin of=spi.img bs=1k conv=notrunc
+~~~
 
 # install mtd-utils
+~~~
 sudo apt install mtd-utils
+~~~
 # Read flash orig
+~~~
 sudo dd if=/dev/mtd0 of=spi_orig.img bs=1K
+~~~
 
 # Flash the image to SPI
+~~~
 sudo flashcp -v spi.img /dev/mtd0 
+~~~
 # Or /dev/mtd/by-name/spi0.0
  
 
@@ -88,14 +105,16 @@ Now it's time to plug in the USB drive (SSD or flash drive):
 # Install Armbian (or Debian) to the USB stick, pendrive or SSD
 # Follow the instructions in the menu, default values are usually fine
 # DON'T REBOOT the device after this step
+~~~
 sudo nand-sata-install
+~~~
 
 
 
 Дальше всё не обязательно, всё работает и так - nand-sata-install всё сделает, выключаемся и вынимаем microSD карту...
 
 
-
+-------------------------------
 
 # Mount the USB stick
 sudo mount /dev/sda1 /mnt
