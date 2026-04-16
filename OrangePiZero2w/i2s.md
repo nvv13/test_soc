@@ -115,6 +115,8 @@ audio_output {
     auto_resample "no"              # Отключаем авто-передискретизацию
     auto_format   "no"              # Отключаем авто-подбор формата
 
+проверить параметры
+cat /proc/asound/ahubi2s3/pcm0p/sub0/hw_params
 ~~~
 
 

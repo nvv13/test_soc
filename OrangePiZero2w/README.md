@@ -38,7 +38,7 @@ Weight	12.5g
 
 поставил debian с оф. сайта orange pi.  -  [kernel 6.1.31](https://drive.google.com/drive/folders/1EH8mMQbgh4IgtOWKgg4nmRuZ57Gvfp9X)
 
-проблема wifi5 решение
+проблема wifi5 решение (подходит только для Debian)
 
 ~~~
 # sudo apt install firmware-realtek
@@ -72,6 +72,19 @@ $ picocom -echo -b 115200 /dev/ttyS5
 ***********************************
 
 PS:
+
+[схема](doc/OPi_ZERO_2W_SCH.pdf)
+
+[схема модуля расширения](doc/ZERO_2W_24PIN_EXTEND_SCH.pdf)
+
+[OrangePi_Zero2w_H618_User_Manual_v1.3.pdf](doc/OrangePi_Zero2w_H618_User_Manual_v1.3.pdf)
+
+[H616_User_Manual_V1.0_cleaned.pdf](doc/H616_User_Manual_V1.0_cleaned.pdf)
+
+[OPi_ZERO_2W_V1_1_1A.pdf](doc/OPi_ZERO_2W_V1_1_1A.pdf)
+
+[AXP313A(en).PDF](doc/AXP313A(en).PDF)
+
 
 [Armbian](https://www.armbian.com/orange-pi-zero-2w/)
 
