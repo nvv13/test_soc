@@ -20,25 +20,78 @@ $ sudo apt install libgpiod-dev
 !перепаять перемычки в режим 4SPI! 
 
 
-соеденить по схеме:
+orangepi-congig
+
+поставить галочку
+
+spi1-cs0-cs1-spidev
+
+это добавит в файл /boot/orangepiEnv.txt строку
+
+overlays=spi1-cs0-cs1-spidev
+
+после перезагрузки
 
 ~~~
+root@orangepizero2w:# ls /dev/spi*
+появиться что что то типа
+/dev/spidev1.0  /dev/spidev1.1
+~~~
 
----- ------
-Or2w LCD 1322  
----- ------
-gnd      1  VSS (GND)  
-3.3v/5v  2  VCC
+посмотрим куда контакты смотрят
+~~~
+root@orangepizero2w:~# cat /sys/kernel/debug/pinctrl/300b000.pinctrl/pinmux-pins | grep -E "spi1"
+появиться что что то типа
+pin 229 (PH5): device 5011000.spi function spi1 group PH5
+pin 230 (PH6): device 5011000.spi function spi1 group PH6
+pin 231 (PH7): device 5011000.spi function spi1 group PH7
+pin 232 (PH8): device 5011000.spi function spi1 group PH8
+pin 233 (PH9): device 5011000.spi function spi1 group PH9
+~~~
 
-PI15     4  SCLK  синхросигнал
-PI00     5  SDA  данные
-        15 RES  сброс (reset)
-PI04    14 DC   комманда/данные
-PI03    16 CS   выбор чипа
 
-----  ------
-Or2w  LCD   
-----  ------
+тогда, соеденить по схеме:
+~~~
+
+-------   ------
+Or2w      LCD 1322  
+-------   ------
+gnd   6    1  VSS (GND)  
+5v    4    2  VCC
+
+PH6  23    4  SCLK  синхросигнал
+PH7  19    5  SDA  данные
+          15 RES  сброс (reset)
+PI04 38   14 DC   комманда/данные
+PI03 40   16 CS   выбор чипа
+
+-------   ------
+Or2w      LCD   
+-------   ------
+~~~
+
+
+
+
+
+это альтернативный вариант с bitbang драйвером!
+~~~
+
+-------   ------
+Or2w      LCD 1322  
+-------   ------
+gnd   6    1  VSS (GND)  
+5v    4    2  VCC
+
+PI15 31    4  SCLK  синхросигнал
+PI00 29    5  SDA  данные
+          15 RES  сброс (reset)
+PI04 38   14 DC   комманда/данные
+PI03 40   16 CS   выбор чипа
+
+-------   ------
+Or2w      LCD   
+-------   ------
 
 
 ~~~
