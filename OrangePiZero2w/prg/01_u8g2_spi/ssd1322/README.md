@@ -19,8 +19,11 @@ $ sudo apt install libgpiod-dev
 
 !перепаять перемычки в режим 4SPI! 
 
-
-orangepi-congig
+включаем spi1
+~~~
+orangepi-config
+~~~
+Выберите System -> Hardware.
 
 поставить галочку
 
@@ -63,7 +66,8 @@ PH6  23    4  SCLK  синхросигнал
 PH7  19    5  SDA  данные
           15 RES  сброс (reset)
 PI04 38   14 DC   комманда/данные
-PI03 40   16 CS   выбор чипа
+#PI03 40   16 CS   выбор чипа - в инит библиотеки указано
+PH5 24   16 CS   выбор чипа
 
 -------   ------
 Or2w      LCD   
