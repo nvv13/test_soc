@@ -9,6 +9,7 @@ Linux orangepizero2w 6.1.31-sun50iw9 #1.0.2 SMP Thu Aug  1 11:28:17 UTC 2024 aar
 используем для этого софтовый SPI драйвер Linux
 (на самом деле модуль spi-gpio.ko который использует уже spi-bitbang.ko)
 
+root@orangepizero2w:~/spi-bitbang# modprobe spi_gpio
 root@orangepizero2w:~/spi-bitbang# lsmod | grep spi
 spi_gpio               20480  0
 spi_bitbang            20480  1 spi_gpio
