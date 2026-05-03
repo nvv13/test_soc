@@ -34,9 +34,9 @@ https://github.com/Xilinx/linux-xlnx/blob/master/tools/spi/spidev_fdx.c
                 #size-cells = <0>;
                 ranges;
                 
-		sck-gpios  = <&pio 7 5 0>;  /* PH5 */
-		miso-gpios = <&pio 7 4 0>;  /* PH4  */
-		mosi-gpios = <&pio 7 9 0>;  /* PH9  */
+		sck-gpios  = <&pio 7 5 0>;  /* PH5 24 */
+		miso-gpios = <&pio 7 4 0>;  /* PH4 18 */
+		mosi-gpios = <&pio 7 9 0>;  /* PH9 26 */
                 num-chipselects = <0>;
                 status = "okay";
 

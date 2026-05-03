@@ -32,10 +32,10 @@ https://github.com/Xilinx/linux-xlnx/blob/master/tools/spi/spidev_fdx.c
                 #address-cells = <0x1>;
                 ranges;
                 
-		sck-gpios  = <&pio 8 15 0>; /*t_clk= PI15*/
-		miso-gpios = <&pio 8 2 0>;  /*t_dout=PI2 */
-		mosi-gpios = <&pio 8 0 0>;  /*t_din= PI0*/
-		cs-gpios   = <&pio 8 16 1>; /*t_cs=  PI16*/
+		sck-gpios  = <&pio 8 15 0>; /*t_clk= PI15 31 */
+		miso-gpios = <&pio 8 2 0>;  /*t_dout=PI2  35 */
+		mosi-gpios = <&pio 8 0 0>;  /*t_din= PI0  29 */
+		cs-gpios   = <&pio 8 16 1>; /*t_cs=  PI16 37 */
                 num-chipselects = <1>;
                 status = "okay";
 
