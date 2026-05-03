@@ -82,6 +82,8 @@ Or2w            LCD
 
 тогда используем вариант с bitbang драйвером!
 
+[подробнее](../../../device/spi-gpio/README.md)
+
 spi-gpio_0cs_v2.dts
 ~~~
 
@@ -106,6 +108,8 @@ Or2w            LCD
 
 
 это альтернативный вариант с bitbang драйвером!
+
+[подробнее](../../../device/spi-gpio/README.md)
 
 spi-gpio_0cs.dts
 ~~~
