@@ -18,18 +18,24 @@ Audio HUB
 * I2S mode supports 8 channels, and 32-bit/192 kbit sample rate
 * I2S and TDM modes support maximum 16 channels, and 32-bit/96 kbit sample rate
 
-i2s0 - не удалось включить, не совсем понял, что это
+i2s0 - не удалось включить, не совсем понял, что это (PI0,PI1,PI2,PI3,PI4)
+      40 pin connector
+H_I2S0_MCLK   -> PI0 -> 29 
+H_I2S0_BCLK   -> PI1 -> 12
+H_I2S0_LRCK   -> PI2 -> 35
+H_I2S0_DOUT0  -> PI3 -> 40
+H_I2S0_DIN0   -> PI4 -> 38
+
 i2s1 ? подключен к HDMI ?
 i2s2 подключён к внешнему Bluetoon(+wifi) адаптеру на плате
-i2s3 - можно использоватьчерез контакты
 
+i2s3 - можно использоватьчерез контакты (PH5,PH6,PH7,PH8,PH9)
       40 pin connector
 H_I2S3_MCLK   -> PH5 -> 24 
 H_I2S3_BCLK   -> PH6 -> 23
 H_I2S3_LRCK   -> PH7 -> 19
 H_I2S3_DOUT0  -> PH8 -> 21
 H_I2S3_DIN0   -> PH9 -> 26
-
 
 например 
   (PCM5102a)
@@ -58,7 +64,11 @@ H_I2S3_DIN0   -> PH9 -> 26
 добавляем, комманда:
 
 ~~~
+     для i2s3
 # orangepi-add-overlay sun50i-h616-i2s3_v2.dts
+
+ или для i2s0
+# orangepi-add-overlay sun50i-h616-i2s0_v4.dts
 ~~~
 
 в файле 
@@ -69,6 +79,25 @@ H_I2S3_DIN0   -> PH9 -> 26
 
 user_overlays=sun50i-h616-i2s3_v2
 
+перезагружаемся
+~~~
+    для i2s3
+root@orangepizero2w:~# cat /sys/kernel/debug/pinctrl/300b000.pinctrl/pinmux-pins | grep -E "i2s"
+  должно быть что то такое
+pin 229 (PH5): device soc:ahub3_plat function i2s3 group PH5
+pin 230 (PH6): device soc:ahub3_plat function i2s3 group PH6
+pin 231 (PH7): device soc:ahub3_plat function i2s3 group PH7
+pin 232 (PH8): device soc:ahub3_plat function i2s3_dout0 group PH8
+
+
+ или для i2s0
+root@orangepizero2w:~# cat /sys/kernel/debug/pinctrl/300b000.pinctrl/pinmux-pins | grep -E "i2s"
+pin 256 (PI0): device soc:ahub0_plat function i2s0 group PI0
+pin 257 (PI1): device soc:ahub0_plat function i2s0 group PI1
+pin 258 (PI2): device soc:ahub0_plat function i2s0 group PI2
+pin 259 (PI3): device soc:ahub0_plat function i2s0_dout0 group PI3
+pin 260 (PI4): device soc:ahub0_plat function i2s0_din0 group PI4
+~~~
 
 далее
 
