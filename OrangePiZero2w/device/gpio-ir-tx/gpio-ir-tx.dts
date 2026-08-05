@@ -1,0 +1,23 @@
+/*
+ * add gpio-ir-tx to enable ir send on sunxi
+ */
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "allwinner,sun50i-h616";
+
+	/* Documentation/devicetree/bindings/leds/irled/gpio-ir-tx.txt */
+	fragment@0 {
+		target-path = "/";
+
+		__overlay__ {
+			irled@0 {
+				compatible = "gpio-ir-tx";
+				gpios =  <&pio 8 3 0>;  /* PI3 GPIO_ACTIVE_HIGH */
+			};
+
+		};
+	};
+};
