@@ -37,15 +37,23 @@ from vosk import Model, KaldiRecognizer
 import samplerate
 
 # ==================== НАСТРОЙКИ ====================
-TARGET_SR = 16000  # Частота для модели
+# Индекс устройства (измените под свой микрофон)
+MICROPHONE_DEVICE_INDEX = 3  # None = устройство по умолчанию
 CAPTURE_SR = 44100  # Родная частота USB-камеры
 CAPTURE_CHANNELS = 2  # Стерео
-TARGET_CHANNELS = 1  # Моно
 
-FORMAT = pyaudio.paInt16
-CHUNK = 4410  # Увеличен для лучшей производительности
-#CHUNK = 8192  # Увеличен для лучшей производительности
+
+TARGET_SR = 16000  # Частота для модели !не менять!
+TARGET_CHANNELS = 1  # Моно !не менять!
+FORMAT = pyaudio.paInt16 # не надо менять
+CHUNK = 4410  # Увеличен для лучшей производительности, не надо менять
+
 SILENCE_TIMEOUT = 10.0  # Таймаут тишины (сек)
+
+INCOMMAND_LED = 38 # включаеться когда слушает комманды
+MODEL_PATH = "model"  # Путь к папке с моделью Vosk
+IRCODE_PATH = "ircode" # Путь к папке с описанием IR последовательностей
+
 
 KEYWORD = "муся"
 COMMANDS = {
@@ -272,11 +280,6 @@ COMMANDS = {
     "привет": "hello"
 }
 
-# Индекс устройства (измените под свой микрофон)
-MICROPHONE_DEVICE_INDEX = 3  # None = устройство по умолчанию
-INCOMMAND_LED = 38 # включаеться когда слушает комманды
-MODEL_PATH = "model"  # Путь к папке с моделью Vosk
-IRCODE_PATH = "ircode" # Путь к папке с описанием IR последовательностей
 # ==================================================
 
 class VoiceAssistant:
