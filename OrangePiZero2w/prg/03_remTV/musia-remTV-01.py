@@ -60,13 +60,13 @@ IRCODE_PATH = "ircode" # Путь к папке с описанием IR пос�
 KEYWORD = "муся"
 COMMANDS = {
 # ========== УПРАВЛЕНИЕ ТЕЛЕВИЗОРОМ ==========
-            "включи" : "OnOff", "включи телевизор" : "OnOff", "включить телевизор" : "OnOff", "включи тв" : "OnOff", "включить" : "OnOff",
+            "включи" : "OnOff", "включить" : "OnOff",
 
-            "выключи": "OnOff", "выключи телевизор": "OnOff", "выключить телевизор": "OnOff", "выключи тв": "OnOff", "выключить": "OnOff",
+            "выключи": "OnOff", "выключить": "OnOff",
 
-            "сделай громче" : "volup", "увеличь громкость" : "volup", "прибавь звук" : "volup", "громче" : "volup",
+            "громче" : "volup", "ещё громче": "volup",
 
-            "сделай тише": "voldown", "уменьши громкость": "voldown", "убавь звук": "voldown", "тише": "voldown",
+            "тише": "voldown", "ещё тише": "voldown",
 
             "звук": "mute",
 
@@ -82,6 +82,7 @@ COMMANDS = {
             # "мышь": "mouse",
             "хорошо": "ok",
             "ок": "ok",
+            "окей": "ok",
             "свойства": "properts",
             "вправо": "right",
             "правее": "right",
@@ -98,6 +99,7 @@ COMMANDS = {
     # 1
     "первый": "1",
     "один": "1",
+    "раз": "1",
     
     # 2
     "второй": "_2",
@@ -119,13 +121,13 @@ COMMANDS = {
     "шестой": "6",
     "шесть": "6",
     
-    # 7
-    "седьмой": "7",
-    "семь": "7",
-    
     # 8
     "восьмой": "8",
     "восемь": "8",
+
+    # 7
+    "седьмой": "7",
+    "семь": "7",
     
     # 9
     "девятый": "9",
@@ -327,10 +329,12 @@ class VoiceAssistant:
             print("👋 Привет! Чем могу помочь?")
             self.silent_frames = 0
         else:
+            GPIO.output(self.remote_led, False)
             print(f"команда: {command}")
             self.ir.codes_path=IRCODE_PATH+"/"+command+".json"
             self.ir.load_codes()
             self.ir.send(self.ir.codes)
+            GPIO.output(self.remote_led, self.is_awake)
 
     def check_silence_timeout(self):
         """Проверка таймаута тишины"""
