@@ -39,8 +39,10 @@ import samplerate
 # ==================== НАСТРОЙКИ ====================
 # Индекс устройства (измените под свой микрофон)
 MICROPHONE_DEVICE_INDEX = 3  # None = устройство по умолчанию
-CAPTURE_SR = 44100  # Родная частота USB-камеры
-CAPTURE_CHANNELS = 2  # Стерео
+#CAPTURE_SR = 44100  # Родная частота USB-камеры
+#CAPTURE_CHANNELS = 2  # Стерео
+CAPTURE_SR = 16000  # Родная частота USB-камеры
+CAPTURE_CHANNELS = 1  # Стерео
 
 
 TARGET_SR = 16000  # Частота для модели !не менять!
@@ -242,14 +244,14 @@ class VoiceAssistant:
                               
                     # Передискретизация (44.1 → 16 кГц) - быстрая
                     if TARGET_SR!=CAPTURE_SR :
-                        audio_resampled = samplerate.resample(
+                        audio_data = samplerate.resample(
                           audio_data, 
                           self.resample_ratio, 
                          'sinc_fastest'
                          ).astype(np.int16)
                                         
                     # Отправляем в Vosk
-                    if self.recognizer.AcceptWaveform(audio_resampled.tobytes()):
+                    if self.recognizer.AcceptWaveform(audio_data.tobytes()):
                         # Получаем результат
                         result_json = json.loads(self.recognizer.Result())
                         recognized_text = result_json.get("text", "").strip()
