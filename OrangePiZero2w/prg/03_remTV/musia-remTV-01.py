@@ -335,6 +335,7 @@ class VoiceAssistant:
             self.ir.load_codes()
             self.ir.send(self.ir.codes)
             GPIO.output(self.remote_led, self.is_awake)
+            self.silent_frames = 0
 
     def check_silence_timeout(self):
         """Проверка таймаута тишины"""
