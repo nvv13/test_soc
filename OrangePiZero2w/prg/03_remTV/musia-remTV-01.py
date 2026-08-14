@@ -2,7 +2,7 @@
 
 
 # Установка необходимых пакетов
-# sudo apt-get install portaudio19-dev python3-pyaudio
+# sudo apt-get install portaudio19-dev python3-pyaudio python3-pip python3-dev
 # sudo pip install --break-system-packages vosk pyaudio numpy 
 # sudo pip install --break-system-packages samplerate
 # sudo python3 -m pip install -U cgir --break-system-packages
