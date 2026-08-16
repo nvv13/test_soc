@@ -50,7 +50,7 @@ TARGET_CHANNELS = 1  # Моно !не менять!
 FORMAT = pyaudio.paInt16 # не надо менять
 CHUNK = 4410  # Увеличен для лучшей производительности, не надо менять
 
-SILENCE_TIMEOUT = 5.0  # Таймаут тишины (сек)
+SILENCE_TIMEOUT = 10.0  # Таймаут тишины (сек)
 
 INCOMMAND_LED = 38 # включаеться когда слушает комманды
 MODEL_PATH = "model"  # Путь к папке с моделью Vosk
