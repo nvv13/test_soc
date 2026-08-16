@@ -25,7 +25,7 @@ sudo groupadd -f gpio
 
 Добавляем пользователя orangepi в эту группу
 ~~~
-sudo usermod -a -G gpio orangepi
+sudo usermod -a -G gpio  $USER
 ~~~
 
 
@@ -34,7 +34,7 @@ sudo usermod -a -G gpio orangepi
 Откройте файл для редактирования:
 
 ~~~
-sudo nano /etc/udev/rules.d/99-gpio.rules
+sudo mcedit /etc/udev/rules.d/99-gpio.rules
 ~~~
 
 Скопируйте и вставьте в него следующие строки:
@@ -61,7 +61,9 @@ sudo reboot
 
 ## Установка необходимых пакетов
 ~~~
-sudo apt-get install portaudio19-dev python3-pyaudio
+sudo apt-get install portaudio19-dev python3-pyaudio python3-pip python3-dev
+# иногда когда не работает ключь --break-system-packages sudo python -m pip install --upgrade pip
+sudo pip install OPi.GPIO-ex --break-system-packages
 sudo pip install --break-system-packages vosk pyaudio numpy 
 sudo pip install --break-system-packages samplerate
 sudo python3 -m pip install -U cgir --break-system-packages
