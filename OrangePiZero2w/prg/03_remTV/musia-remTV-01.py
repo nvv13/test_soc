@@ -39,10 +39,10 @@ import samplerate
 # ==================== НАСТРОЙКИ ====================
 # Индекс устройства (измените под свой микрофон)
 MICROPHONE_DEVICE_INDEX = 3  # None = устройство по умолчанию
-CAPTURE_SR = 44100  # Родная частота USB-камеры
-CAPTURE_CHANNELS = 2  # Стерео
-#CAPTURE_SR = 16000  # Родная частота USB-камеры
-#CAPTURE_CHANNELS = 1  # Стерео
+#CAPTURE_SR = 44100  # Родная частота USB-камеры
+#CAPTURE_CHANNELS = 2  # Стерео
+CAPTURE_SR = 16000  # Родная частота USB-камеры
+CAPTURE_CHANNELS = 1  # Стерео
 
 
 TARGET_SR = 16000  # Частота для модели !не менять!
