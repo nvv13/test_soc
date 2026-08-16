@@ -163,7 +163,6 @@ class VoiceAssistant:
         print("✅ Модель загружена. Грамматика настроена.")
         
         self.is_awake = False
-        self.is_mute = False
         self.silent_frames = 0
         self.running = True
         self.audio_queue = queue.Queue()
@@ -289,10 +288,6 @@ class VoiceAssistant:
                 self.silent_frames = 0
                 print(f"🔊 Услышала '{KEYWORD}'! Просыпаюсь...")
                 print("💬 Я слушаю ваши команды...")
-                self.ir.codes_path=IRCODE_PATH+"/mute.json"
-                self.ir.load_codes()
-                self.ir.send(self.ir.codes)
-                self.is_mute = True
         else:
             # Режим бодрствования
             self.silent_frames = 0
@@ -323,11 +318,6 @@ class VoiceAssistant:
             self.is_awake = False
             GPIO.output(self.remote_led, self.is_awake)
             self.silent_frames = 0
-            if self.is_mute:
-                self.ir.codes_path=IRCODE_PATH+"/mute.json"
-                self.ir.load_codes()
-                self.ir.send(self.ir.codes)
-                self.is_mute = False
         elif command == "weather":
             print("🌤️ Погода: +22°C, солнечно")
             self.silent_frames = 0
@@ -346,8 +336,6 @@ class VoiceAssistant:
             self.ir.send(self.ir.codes)
             GPIO.output(self.remote_led, self.is_awake)
             self.silent_frames = 0
-            if command in [ "mute", "OnOff","volup","voldown" ]:
-                self.is_mute = False
     
     def check_silence_timeout(self):
         """Проверка таймаута тишины"""
@@ -360,11 +348,6 @@ class VoiceAssistant:
                     self.is_awake = False
                     GPIO.output(self.remote_led, self.is_awake)
                     self.silent_frames = 0
-                    if self.is_mute:
-                        self.ir.codes_path=IRCODE_PATH+"/mute.json"
-                        self.ir.load_codes()
-                        self.ir.send(self.ir.codes)
-                        self.is_mute = False
     
     def run(self):
         """Запуск ассистента"""
