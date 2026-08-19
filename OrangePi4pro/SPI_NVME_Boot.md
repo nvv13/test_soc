@@ -43,6 +43,8 @@ brw-rw---- 1 root disk 31, 0 Aug 19 17:45 /dev/mtdblock0
 
 Если вы видите /dev/mtd0 или /dev/mtd/by-name/spi0.0, то можно сделать U-Boot образ и записать на SPI flash.
 
+похоже - переходим сразу к пункту nand-sata-install
+
 Сначала делаем пустой образ
 ~~~
 dd if=/dev/zero count=2048 bs=1K | tr '\000' '\377' > spi.img
@@ -96,5 +98,6 @@ nand-sata-install
 включаем, запуск происходит с USB устройства!
 
 -------------------------------
+
 
 
