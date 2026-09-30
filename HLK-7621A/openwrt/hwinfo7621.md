@@ -1,3 +1,5 @@
+## OpenWrt 24.10.4
+
 ~~~
 root@OpenWrt:~# opkg update
 root@OpenWrt:~# opkg install hwinfo

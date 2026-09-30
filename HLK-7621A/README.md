@@ -73,7 +73,7 @@ user@fedora:~# picocom -b 57600 /dev/ttyUSB0
 	43 ESW_TXVN_D_P1Port #1 MDI Transceivers
 
 
-прошивка openwrt-24.10.5-ramips-mt7621-hilink_hlk-7621a-evb-squashfs-sysupgrade.bin
+прошивка (к примеру) openwrt-24.10.5-ramips-mt7621-hilink_hlk-7621a-evb-squashfs-sysupgrade.bin
 ложим в /var/lib/tftpboot
 только переименовать в короткое имя надо
 и запустить tftp

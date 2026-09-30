@@ -11,6 +11,7 @@ In April 2026, Orange Pi launched the latest iteration of its Zero series— the
  
 
 ![photo](https://oscimg.oschina.net//AiCreationDetail/up-6f2e90ec20861cfd140bcc520ac68cde.png)
+
 ##1. 16GB LPDDR5: A Memory Extravaganza for a Micro Development Board
 
 The advent of 16GB LPDDR5 means that users can utilize this small board to:

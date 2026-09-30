@@ -1,3 +1,4 @@
+## OpenWrt 24.10.4
 
 ~~~
 root@WifiRadio:~# hwinfo
