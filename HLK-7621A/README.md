@@ -1,3 +1,8 @@
+Модуль построен на чипе MediaTek MT7621AT 2014 год
+
+сам модуль HLK-7621A дата выпуска вероятно 2020 год или ранее....
+
+
 - HLK-7621A module Memory: DDR3(L) - 256MB, SPI Flash  - 32MB
 
 - Operating Voltage: 3.3V
