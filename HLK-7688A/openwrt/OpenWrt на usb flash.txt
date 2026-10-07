@@ -1,0 +1,139 @@
+>как добавит в систему на OpenWrt 25.12.5
+устройство HLK-7688a
+
+дисковое пространство внешней usb flash
+
+сейчас
+"
+root@WifiRadio:~# df -h
+Filesystem                Size      Used Available Use% Mounted on
+/dev/root                 4.0M      4.0M         0 100% /rom
+tmpfs                    60.1M      1.8M     58.2M   3% /tmp
+/dev/mtdblock6           25.9M      3.5M     22.3M  14% /overlay
+overlayfs:/overlay       25.9M      3.5M     22.3M  14% /
+tmpfs                   512.0K         0    512.0K   0% /dev
+root@WifiRadio:~#
+"
+
+<Найдено 19 веб-страниц
+Для расширения дискового пространства на устройстве HLK-7688A под управлением OpenWrt 25.12.5 с помощью внешнего USB-накопителя используется функция extroot. Её суть — перенос корневого раздела (overlay) на флешку, что позволяет устанавливать туда дополнительные пакеты.
+
+Важный момент: в OpenWrt 25.12 менеджер пакетов сменился с opkg на apk. Команды установки будут немного другими.
+
+Вот пошаговая инструкция:
+
+1. Подготовка и установка пакетов
+Сначала подключите USB-флешку к роутеру и установите необходимые компоненты через SSH.
+
+bash
+# Обновление списка пакетов
+apk update
+
+# Установка пакетов для работы с USB и ext4
+apk add block-mount kmod-fs-ext4 e2fsprogs parted kmod-usb-storage
+2. Разметка и форматирование флешки
+Внимание: этот шаг удалит все данные на флешке. Убедитесь, что выбрали правильное устройство. Обычно внешний накопитель определяется как /dev/sda. Проверить можно командой ls -l /sys/block.
+
+bash
+# Укажите ваше устройство (замените /dev/sda, если это не так)
+DISK="/dev/sda"
+
+# Создание новой таблицы разделов GPT и одного раздела
+parted -s ${DISK} -- mklabel gpt mkpart extroot 2048s -2048s
+
+# Форматирование раздела в ext4
+DEVICE="${DISK}1"
+mkfs.ext4 -L extroot ${DEVICE}
+3. Настройка Extroot
+Теперь нужно указать системе, что этот раздел будет использоваться как внешний overlay.
+
+bash
+# Получение UUID и точки монтирования текущего overlay
+eval $(block info ${DEVICE} | grep -o -e 'UUID="\S*"')
+eval $(block info | grep -o -e 'MOUNT="\S*/overlay"')
+
+# Настройка записи в fstab для нового extroot
+uci -q delete fstab.extroot
+uci set fstab.extroot="mount"
+uci set fstab.extroot.uuid="${UUID}"
+uci set fstab.extroot.target="${MOUNT}"
+uci commit fstab
+
+# Настройка доступа к старому overlay (резервный вариант)
+ORIG="$(block info | sed -n -e '/MOUNT="\S*\/overlay"/s/:\s.*$//p')"
+uci -q delete fstab.rwm
+uci set fstab.rwm="mount"
+uci set fstab.rwm.device="${ORIG}"
+uci set fstab.rwm.target="/rwm"
+uci commit fstab
+4. Перенос данных
+Скопируйте текущее содержимое overlay на флешку, чтобы система после перезагрузки работала корректно.
+
+bash
+# Монтирование флешки во временную папку
+mount ${DEVICE} /mnt
+
+# Копирование данных из старого overlay на флешку
+tar -C ${MOUNT} -cvf - . | tar -C /mnt -xf -
+
+# Размонтирование
+umount /mnt
+5. Перезагрузка и проверка
+Выполните команду reboot. После загрузки проверьте результат:
+
+bash
+df -h
+Теперь размер корневого раздела / (или overlayfs:/overlay) должен соответствовать объёму вашей флешки.
+
+Если что-то пошло не так: В OpenWrt есть встроенная защита. Если система не сможет смонтировать внешний overlay, она загрузится со старого внутреннего раздела, так как вы настроили точку монтирования /rwm.
+
+
+
+
+>как с помощью uci
+посмотреть fstab
+
+>Посмотреть текущие настройки fstab через uci можно так:
+
+bash
+uci show fstab
+Это выведет все секции и их параметры в формате fstab.<имя>.<параметр>=<значение>. Например:
+
+text
+fstab.@mount[0]=mount
+fstab.@mount[0].device=/dev/mtdblock6
+fstab.@mount[0].target=/overlay
+fstab.@mount[0].enabled=1
+fstab.extroot=mount
+fstab.extroot.uuid=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+fstab.extroot.target=/overlay
+Полезные варианты
+Только имена секций:
+
+bash
+uci show fstab | grep '^fstab\.' | cut -d. -f2 | cut -d= -f1 | sort -u
+Конкретная секция (например, extroot):
+
+bash
+uci show fstab.extroot
+Читать как обычный конфиг-файл (то, что реально лежит в /etc/config/fstab):
+
+bash
+cat /etc/config/fstab
+Важное замечание
+uci show отображает конфигурацию из /etc/config/fstab (то есть то, что вы задали). А реально примонтированные файловые системы и их статус (включая то, был ли применён extroot) показывает другая команда:
+
+bash
+block info
+или
+
+bash
+block mount
+Разница:
+
+uci show fstab — что настроено.
+
+block info — что фактически смонтировано сейчас (с учётом UCI и hotplug-событий).
+
+Если после настройки extroot uci show fstab показывает нужную секцию, но df -h после перезагрузки не изменился — скорее всего UUID или target указаны неверно, либо раздел не смонтировался (смотрите logread | grep -i mount).
+

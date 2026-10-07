@@ -107,7 +107,6 @@ $ service tftp start
 
 поставил модули для внешнего переходника usb-uart (и gpio возможно управлять)
 
-есть у меня пере таких платок
 ~~~
 root@OpenWrt:~# opkg find kmod-usb-serial*
 root@OpenWrt:~# opkg install kmod-usb-serial-cp210x
