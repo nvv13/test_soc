@@ -28,3 +28,12 @@ root@WifiRadio:~# i2cdetect -y 0
 
 
 ~~~ 
+
+в Makefile добавлены ключи
+~~~
+# Для компилятора: помещаем все функции в отдельные секции
+TARGET_CFLAGS += -ffunction-sections -fdata-sections
+
+# Для линкера: удаляем неиспользуемые секции
+TARGET_LDFLAGS += -Wl,--gc-sections
+~~~

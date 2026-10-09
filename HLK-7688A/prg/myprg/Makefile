@@ -16,7 +16,7 @@ define Package/myprg
   DEPENDS:=+libi2c +libstdcpp   # Укажите нужные зависимости
 endef
 
-# Копируем ваш проект в директорию сборки
+# Копируем ваш проект в директорию сборки (не нужно, есть директория src)
 #define Build/Prepare
 #	mkdir -p $(PKG_BUILD_DIR)
 #	$(CP) /абсолютный/путь/до/вашего/проекта/* $(PKG_BUILD_DIR)/
