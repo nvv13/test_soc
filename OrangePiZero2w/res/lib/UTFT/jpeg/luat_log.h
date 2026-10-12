@@ -8,7 +8,10 @@ extern "C" {
 
 #include "tjpgdcnf.h"
 
-#include "wm_mem.h"
+#include <stdlib.h>
+#ifndef tls_mem_alloc
+#define tls_mem_alloc(n)  malloc(n)
+#endif
 
 #define luat_heap_malloc tls_mem_alloc 
 #define luat_heap_free tls_mem_free 
