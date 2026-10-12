@@ -84,7 +84,7 @@ typedef uint32_t dword;
 
 
 
-#define BUFSIZ_SPI 200
+#define BUFSIZ_SPI 1024
 
 /**
  * @brief
