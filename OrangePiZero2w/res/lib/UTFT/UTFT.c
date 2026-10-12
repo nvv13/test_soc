@@ -316,30 +316,6 @@ UTFT_UTFT (byte model, u8x8_linux_i2c_t *u8x8_riot_ptr)
 
   if (display_transfer_mode != 1)
     {
-      UTFT__set_direction_registers (display_transfer_mode);
-      P_RS = portOutputRegister (digitalPinToPort (RS));
-      B_RS = digitalPinToBitMask (RS);
-      P_WR = portOutputRegister (digitalPinToPort (WR));
-      B_WR = digitalPinToBitMask (WR);
-      P_CS = portOutputRegister (digitalPinToPort (CS));
-      B_CS = digitalPinToBitMask (CS);
-      P_RST = portOutputRegister (digitalPinToPort (RST));
-      B_RST = digitalPinToBitMask (RST);
-      if (display_transfer_mode == LATCHED_16)
-        {
-          P_ALE = portOutputRegister (digitalPinToPort (SER));
-          B_ALE = digitalPinToBitMask (SER);
-          cbi (P_ALE, B_ALE);
-          pinMode (SER, OUTPUT);
-          digitalWrite (SER, LOW);
-        }
-      if (display_model == ILI9341_UNO || display_model == ILI9341_MEGA
-          || ILI9327_UNO)
-        {
-          P_ALE = portOutputRegister (digitalPinToPort (SER));
-          B_ALE = digitalPinToBitMask (SER);
-          sbi (P_ALE, B_ALE);
-        }
     }
   else
     {
@@ -365,17 +341,9 @@ UTFT_UTFT (byte model, u8x8_linux_i2c_t *u8x8_riot_ptr)
 static void
 LCD_WR_REG (u16 Value)
 {
-  if (display_transfer_mode != 1)
-    {
-      cbi_RS ();
-      LCD_Write_1byte_Flag = 0;
-      UTFT_LCD_Writ_Bus (Value >> 8, Value & 0xff, display_transfer_mode, display_serial_mode);
-    }
-  else
-   {
-      UTFT_LCD_Writ_Bus (0x00, Value >> 8  , display_transfer_mode, display_serial_mode);
-      UTFT_LCD_Writ_Bus (0x00, Value & 0xff, display_transfer_mode, display_serial_mode);
-   }
+          cbi_RS ();
+          u8 buf[2] = { VH, VL };
+          UTFT_LCD_Writ_Bus_SPI (buf, 2);
 }
 
 static void
@@ -387,14 +355,6 @@ LCD_WR_DATA (byte VL)
 void
 UTFT_LCD_Write_COM (char VL)
 {
-  if (display_transfer_mode != 1)
-    {
-      cbi_RS ();
-      LCD_Write_1byte_Flag = 1;
-      UTFT_LCD_Writ_Bus (0x00, VL, display_transfer_mode, display_serial_mode);
-      LCD_Write_1byte_Flag = 0;
-    }
-  else
     UTFT_LCD_Writ_Bus (0x00, VL, display_transfer_mode, display_serial_mode);
 }
 
@@ -406,7 +366,7 @@ UTFT_LCD_Write_DATA_Pixel (char VH,
     {
       uint16_t color = ~(VH << 8 | VL);
 
-      if (display_serial_mode == SERIAL_5PIN && _spi_freq != 0)
+      if (display_serial_mode == SERIAL_5PIN)
         {
           sbi_RS ();
 
@@ -480,14 +440,7 @@ UTFT_LCD_Write_DATA_Pixel24bpp (
 void
 UTFT_LCD_Write_DATA (char VH, char VL)
 {
-  if (display_transfer_mode != 1)
-    {
-      sbi_RS ();
-      UTFT_LCD_Writ_Bus (VH, VL, display_transfer_mode, display_serial_mode);
-    }
-  else
-    {
-      if (display_serial_mode == SERIAL_5PIN && _spi_freq != 0)
+      if (display_serial_mode == SERIAL_5PIN)
         {
           sbi_RS ();
           u8 buf[2] = { VH, VL };
@@ -498,20 +451,11 @@ UTFT_LCD_Write_DATA (char VH, char VL)
           UTFT_LCD_Writ_Bus (0x01, VH, display_transfer_mode, display_serial_mode);
           UTFT_LCD_Writ_Bus (0x01, VL, display_transfer_mode, display_serial_mode);
         }
-    }
 }
 
 void
 UTFT_LCD_Write_DATA2 (char VL)
 {
-  if (display_transfer_mode != 1)
-    {
-      sbi_RS ();
-      LCD_Write_1byte_Flag = 1;
-      UTFT_LCD_Writ_Bus (0x00, VL, display_transfer_mode, display_serial_mode);
-      LCD_Write_1byte_Flag = 0;
-    }
-  else
     UTFT_LCD_Writ_Bus (0x01, VL, display_transfer_mode, display_serial_mode);
 }
 
@@ -526,19 +470,6 @@ void
 UTFT_InitLCD (byte orientation)
 {
   orient = orientation;
-
-  pinMode (__p1, OUTPUT);
-  pinMode (__p2, OUTPUT);
-  pinMode (__p3, OUTPUT);
-  if (__p4 != NOTINUSE)
-    pinMode (__p4, OUTPUT);
-  if ((display_transfer_mode == LATCHED_16) || (display_model == ILI9341_UNO)
-      || (display_model == ILI9341_MEGA) || (display_model == ILI9327_UNO)
-      || ((display_transfer_mode == 1)
-          && (display_serial_mode == SERIAL_5PIN)))
-    pinMode (__p5, OUTPUT);
-  if (display_transfer_mode != 1)
-    UTFT__set_direction_registers (display_transfer_mode);
 
   UTFT__hw_special_init ();
 
@@ -846,25 +777,6 @@ UTFT_fillRect (int x1, int y1, int x2, int y2)
     {
       swap_int (y1, y2);
     }
-  if (display_transfer_mode == 16)
-    {
-      cbi (P_CS, B_CS);
-      UTFT_setXY (x1, y1, x2, y2);
-      sbi_RS ();
-      UTFT__fast_fill_16 (fch, fcl,
-                          (((long)(x2 - x1) + 1) * ((long)(y2 - y1) + 1)));
-      sbi (P_CS, B_CS);
-    }
-  else if ((display_transfer_mode == 8) && (fch == fcl))
-    {
-      cbi (P_CS, B_CS);
-      UTFT_setXY (x1, y1, x2, y2);
-      sbi_RS ();
-      UTFT__fast_fill_8 (fch, (((long)(x2 - x1) + 1) * ((long)(y2 - y1) + 1)));
-      sbi (P_CS, B_CS);
-    }
-  else
-    {
       if (orient == PORTRAIT)
         {
           for (int i = 0; i < ((y2 - y1) / 2) + 1; i++)
@@ -881,7 +793,6 @@ UTFT_fillRect (int x1, int y1, int x2, int y2)
               UTFT_drawVLine (x2 - i, y1, y2 - y1);
             }
         }
-    }
 }
 
 void
@@ -1006,17 +917,10 @@ UTFT_fillScr2 (word color)
 
   cbi (P_CS, B_CS);
   UTFT_clrXY ();
-  if (display_transfer_mode != 1)
-    sbi_RS ();
-  if (display_transfer_mode == 16)
-    UTFT__fast_fill_16 (ch, cl, ((disp_x_size + 1) * (disp_y_size + 1)));
-  else if ((display_transfer_mode == 8) && (ch == cl))
-    UTFT__fast_fill_8 (ch, ((disp_x_size + 1) * (disp_y_size + 1)));
-  else
     {
       if (display_serial_mode == SERIAL_5PIN)
         sbi_RS ();
-      if (display_serial_mode == SERIAL_5PIN && _spi_freq != 0
+      if (display_serial_mode == SERIAL_5PIN 
           && buf_4x_line != NULL)
         {
          if (display_bitpixel == 24)
@@ -1211,23 +1115,10 @@ UTFT_drawHLine (int x, int y, int l)
     }
   cbi (P_CS, B_CS);
   UTFT_setXY (x, y, x + l, y);
-  if (display_transfer_mode == 16)
-    {
-      sbi_RS ();
-      UTFT__fast_fill_16 (fch, fcl, l);
-    }
-  else if ((display_transfer_mode == 8) && (fch == fcl))
-    {
-      sbi_RS ();
-      UTFT__fast_fill_8 (fch, l);
-    }
-  else
-    {
       for (int i = 0; i < l + 1; i++)
         {
           UTFT_LCD_Write_DATA_Pixel (fch, fcl);
         }
-    }
   sbi (P_CS, B_CS);
   UTFT_clrXY ();
 }
@@ -1242,23 +1133,10 @@ UTFT_drawVLine (int x, int y, int l)
     }
   cbi (P_CS, B_CS);
   UTFT_setXY (x, y, x, y + l);
-  if (display_transfer_mode == 16)
-    {
-      sbi_RS ();
-      UTFT__fast_fill_16 (fch, fcl, l);
-    }
-  else if ((display_transfer_mode == 8) && (fch == fcl))
-    {
-      sbi_RS ();
-      UTFT__fast_fill_8 (fch, l);
-    }
-  else
-    {
       for (int i = 0; i < l + 1; i++)
         {
           UTFT_LCD_Write_DATA_Pixel (fch, fcl);
         }
-    }
   sbi (P_CS, B_CS);
   UTFT_clrXY ();
 }
