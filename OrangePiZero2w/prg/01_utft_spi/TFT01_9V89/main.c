@@ -14,7 +14,7 @@ main (void)
 
     // Настройки SPI
     .adapter_nr = 1, /* /dev/spidev1.0 */
-    .mode = SPI_MODE_3, .bits = 8, .speed = 100000,
+    .mode = SPI_MODE_0, .bits = 8, .speed = 100000,
 
     .iDC_piochip = 0, // gpiochip0
     .iDC_line = 260,  // PI4
@@ -29,7 +29,9 @@ main (void)
   UTFT_UTFT (TFT01_9V89, &user_data );
 
   UTFT_InitLCD (LANDSCAPE); // инициируем дисплей
-  UTFT_setColor2 (VGA_BLUE); // Устанавливаем синий цвет
+  UTFT_clrScr (); // стираем всю информацию с дисплея
+  UTFT_fillScr2 (VGA_BLUE);
+  UTFT_setColor2 (VGA_BLACK); // Устанавливаем синий цвет
   UTFT_drawRoundRect (
           10, 10, 310,
           160); // Рисуем прямоугольник со скруглёнными углами (с
