@@ -238,20 +238,8 @@ u8x8_linux_spi_delay (u8x8_linux_i2c_t *u8x8_riot_ptr, uint8_t msg, uint8_t arg_
 }
 
 
-void
-UTFT__convert_float (char *buf, double num, int width, byte prec)
-{
-  char format[10];
 
-  sprintf (format, "%%%i.%if", width, prec);
-  sprintf (buf, format, num);
-}
-void
-UTFT_LCD_Writ_Bus_SPI (const u8 *buf, u32 len)
-{
-//  if (_spi_freq != 0)
-//    n_spi_write (buf, len);
-}
+
 
 
 void
