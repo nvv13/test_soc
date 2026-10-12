@@ -12,6 +12,7 @@
 #include <unistd.h>
 
 #include "u8x8_linux-spi.h"
+#include "UTFT.h"
 
 // #define MY_DEBUG // uncomment in for debug flow
 
