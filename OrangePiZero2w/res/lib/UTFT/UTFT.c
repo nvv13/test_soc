@@ -97,8 +97,8 @@ static u8 display_bitpixel;
 static u8 _SPI_16bit=0;
 
 
-static void UTFT_LCD_Writ_Bus (char VH, char VL, byte mode, byte display_serial_mode);
-static void UTFT_LCD_Writ_Bus_SPI (const u8 *buf, u32 len);
+//static void UTFT_LCD_Writ_Bus (char VH, char VL, byte mode, byte display_serial_mode);
+//static void UTFT_LCD_Writ_Bus_SPI (const u8 *buf, u32 len);
 static void UTFT_LCD_Write_COM (char VL);
 static void UTFT_LCD_Write_DATA (char VH, char VL);
 static void
@@ -109,7 +109,7 @@ static void UTFT_LCD_Write_DATA_Pixel24bpp (
     u8 VB); //точно известно что на выход пиксель идёт
 static void UTFT_LCD_Write_DATA2 (char VL);
 static void UTFT_LCD_Write_COM_DATA (char com1, int dat1);
-static void UTFT__hw_special_init ();
+//static void UTFT__hw_special_init ();
 static void UTFT_setPixel (word color);
 static void UTFT_drawHLine (int x, int y, int l);
 static void UTFT_drawVLine (int x, int y, int l);
@@ -117,10 +117,10 @@ static void UTFT_printChar (byte c, int x, int y);
 static void UTFT_setXY (word x1, word y1, word x2, word y2);
 static void UTFT_clrXY ();
 static void UTFT_rotateChar (byte c, int x, int y, int pos, int deg);
-static void UTFT__set_direction_registers (byte mode);
-static void UTFT__fast_fill_16 (byte VH, byte VL, long pix);
-static void UTFT__fast_fill_8 (int ch, long pix);
-static void UTFT__convert_float (char *buf, double num, int width, byte prec);
+//static void UTFT__set_direction_registers (byte mode);
+//static void UTFT__fast_fill_16 (byte VH, byte VL, long pix);
+//static void UTFT__fast_fill_8 (int ch, long pix);
+//static void UTFT__convert_float (char *buf, double num, int width, byte prec);
 
 static void LCD_WR_REG (u16 Value);
 static void LCD_WR_DATA (u8 VL);
