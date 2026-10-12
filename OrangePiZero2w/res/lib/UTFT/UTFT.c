@@ -44,14 +44,6 @@
 
 #include "memorysaver.h"
 
-#include "wm_gpio.h"
-#include "wm_gpio_afsel.h"
-#include "wm_io.h"
-#include "wm_mem.h"
-
-#include "mod1/psram.h"
-
-#include "hardware/sky/HW_SKY_defines.h"
 
 /*
         The functions and variables below should not normally be used.
@@ -76,7 +68,6 @@ static u8 _spi_mode;
 static u8 display_bitpixel;
 static u8 _SPI_16bit=0;
 
-#include "hardware/sky/HW_W801_p.h"
 
 static void UTFT_LCD_Writ_Bus (char VH, char VL, byte mode);
 static void UTFT_LCD_Writ_Bus_SPI (const u8 *buf, u32 len);
@@ -112,8 +103,6 @@ static u8 *full_buf_psram = NULL;
 
 // Подключение аппаратно-зависимых функций, для правильной работы
 // микроконтроллеров
-#include "hardware/sky/HW_SKY.h"
-#include "hardware/sky/HW_W801.h"
 
 void
 UTFT_UTFT (byte model, u8x8_linux_i2c_t *u8x8_riot_ptr)
@@ -2078,4 +2067,3 @@ UTFT_psram_to_drawBitmap(void)
   return;
 }
 
-#include "hardware/sky/HW_W801_load.h"

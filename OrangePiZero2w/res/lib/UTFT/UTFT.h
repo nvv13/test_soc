@@ -282,43 +282,7 @@ typedef bitmapword *bitmapdatatype;
   typedef _current_font_t _current_font;
 
   typedef bool boolean;
-  /*
-  void UTFT_UTFT (byte model, byte RS, byte WR, byte CS, byte RST, byte SER,
-  u32 spi_freq, u8 spi_mode);
 
-  для паралельной шины, указываются RS, WR, CS, RST
-   Выводы параллельной шины данных не указываются
-    если, параллельная 16 бит шина = PB0 ... PB15 !
-    если было бы 8 бит шина = PB0 ... PB7 !
-
-
-  для шины SPI 
-   RS это SDA  данные
-   WR это SCL  синхросигнал
-   CS это  CS  выбор чипа
-   RST это RES сброс (reset)
-   SER это DC  комманда/данные
-   spi_freq    частота SPI(Герц)
-
-   для 5 контактных SPI дисплеев
-   (где отдельно ножка комманда/данные)
-   програмируеться HW SPI на ножки (предопред)
-         wm_spi_cs_config (WM_IO_PB_14); - не исп, но занята
-    WR = wm_spi_ck_config (WM_IO_PB_15);
-         wm_spi_di_config (WM_IO_PB_16); - не исп, но занята
-    RS = wm_spi_do_config (WM_IO_PB_17);
-   но, можно отказаться от HW SPI в пользу Soft SPI
-    установив spi_freq=0 -  эмуляция SPI
-    это удобно для разных ножек
-
-    максимально, частота spi_freq = 20000000 (20MHz)
-        но!      если spi_freq > 20000000 тогда работает spi SDIO
-        частоту можно ставить от 21000000 до 120000000 герц (работает при 240Mhz тактовой)
-    контакты:
-       WM_IO_PB_06 CK   -> SCL
-       WM_IO_PB_07 CMD  -> MOSI
-
-  */
   void UTFT_UTFT (byte model, u8x8_linux_i2c_t *u8x8_riot_ptr);
  // byte RS, byte WR, byte CS, byte RST, byte SER,    u32 spi_freq);
 
