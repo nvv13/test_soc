@@ -5,13 +5,22 @@
 #include <fcntl.h>
 #include <gpiod.h>
 #include <linux/spi/spidev.h>
-#include <stdint.h>
 #include <stdio.h>
 #include <sys/ioctl.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <time.h>
 #include <unistd.h>
+#include <stdint.h>
+
+typedef uint8_t  u8;
+typedef uint16_t u16;
+typedef uint32_t u32;
+typedef uint64_t u64;
+
+typedef uint8_t  byte;
+typedef uint16_t word;
+typedef uint32_t dword;
 
 
 /*
