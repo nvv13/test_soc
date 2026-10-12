@@ -80,84 +80,17 @@ void delay(int millesec)
 
 
 
-
-#define LOW 0
-#define OUTPUT 1
-
-//static void
-//pinMode (byte PIN, byte b_mode)
-//{
-//};
-// volatile
-//static uint32_t *
-//portOutputRegister (u8 PIN)
-//{
-//      return (uint32_t *)0;
-//};
-//static u8
-//digitalPinToPort (byte PIN)
-//{
-//  return PIN;
-//};
-//static u8
-//digitalPinToBitMask (byte PIN)
-//{
-//  return PIN;
-//};
-//static void
-//digitalWrite (byte PIN, int LEVEL)
-//{
-//};
-
-//		P_RS	= portOutputRegister(digitalPinToPort(RS));
-//		B_RS	= digitalPinToBitMask(RS);
-
 //static u8 sost_RS = 255;
-
-
 //static u8 sost_SDA = 255;
 
-static void
-sbi_SDA (void)
-{
-}
-static void
-cbi_SDA (void)
-{
-}
-
 //static void
-//cbi (uint32_t *PORT_REG, u8 PIN)
+//sbi_SDA (void)
 //{
 //}
-
 //static void
-//sbi (uint32_t *PORT_REG, u8 PIN)
+//cbi_SDA (void)
 //{
 //}
-
-//#define pulse_high(reg, bitmask) sbi(reg, bitmask); cbi(reg, bitmask);
-//#define pulse_low(reg, bitmask) cbi(reg, bitmask); sbi(reg, bitmask);
-
-//static void
-//pulse_low_SCL (void)
-//{
-//}
-
-//static void
-//pulse_low_WR_repeat (u32 u32_count)
-//{
-//}
-
-//static void
-//pulse_low_WR (void)
-//{
-//  pulse_low_WR_repeat (1);
-//}
-
-
-
-
 
 
 
