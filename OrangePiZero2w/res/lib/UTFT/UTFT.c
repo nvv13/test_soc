@@ -111,7 +111,7 @@ static byte display_model, display_transfer_mode, display_serial_mode;
 //static byte __p1, __p2, __p3, __p4, __p5;
 static _current_font cfont;
 static boolean _transparent;
-static boolean LCD_Write_1byte_Flag = 0;
+//static boolean LCD_Write_1byte_Flag = 0;
 static u32 _spi_freq;
 static u8 _spi_mode;
 static u8 display_bitpixel;
@@ -169,7 +169,7 @@ u8x8_byte_linux_spi (u8x8_ri_ptr, U8X8_MSG_BYTE_SEND, 1, &VL);
 }
 static void UTFT_LCD_Writ_Bus_SPI (const u8 *buf, u32 len)
 {
-u8x8_byte_linux_spi (u8x8_ri_ptr, U8X8_MSG_BYTE_SEND, len, buf);
+u8x8_byte_linux_spi (u8x8_ri_ptr, U8X8_MSG_BYTE_SEND, len,(void *) buf);
 }
 
 static void UTFT_LCD_Write_COM (char VL);
@@ -193,9 +193,9 @@ static void UTFT_printChar (byte c, int x, int y);
 static void UTFT_setXY (word x1, word y1, word x2, word y2);
 static void UTFT_clrXY ();
 static void UTFT_rotateChar (byte c, int x, int y, int pos, int deg);
-static void UTFT__set_direction_registers (byte mode){};
-static void UTFT__fast_fill_16 (byte VH, byte VL, long pix){};
-static void UTFT__fast_fill_8 (int ch, long pix){};
+//static void UTFT__set_direction_registers (byte mode){};
+//static void UTFT__fast_fill_16 (byte VH, byte VL, long pix){};
+//static void UTFT__fast_fill_8 (int ch, long pix){};
 static void UTFT__convert_float (char *buf, double num, int width, byte prec)
 {
   char format[10];
