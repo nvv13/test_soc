@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <stdarg.h>     // va_list, va_start, va_end — нужны для luat_log_printf
 #include "UTFT.h"
 
 #define LUAT_LOG_TAG "log"
@@ -14,6 +14,8 @@
 #define LOGLOG_SIZE 100
 static char log_printf_buff[LOGLOG_SIZE];
 
+luat_lcd_conf_t* default_conf = NULL;
+
 LUAT_WEAK void luat_log_printf(int level, const char* _fmt, ...) {
     size_t len;
     va_list args;
@@ -23,77 +25,54 @@ LUAT_WEAK void luat_log_printf(int level, const char* _fmt, ...) {
     va_end(args);
     if (len > 0) {
         //luat_log_write(log_printf_buff, len);
-        printf ("%s\n", log_printf_buff);
+        printf("%s\n", log_printf_buff);
     }
 }
 
-static FIL fnew;       // file object
+// ---------------- файловые обёртки поверх stdio ----------------
 
 FILE* luat_fs_fopen(const char *filename, const char *mode)
 {
-  FRESULT res_sd; // file operation results
-  // Open the file
-  res_sd = f_open (&fnew, filename, FA_OPEN_EXISTING | FA_READ);
-  // file opened successfully?
-  if (res_sd == FR_OK)
-    return &fnew;    
-  else
-    return NULL;
+    // POSIX: fopen сам разбирается с mode ("rb", "r", "wb", ...)
+    return fopen(filename, mode);
 }
 
-
 size_t luat_fs_fread(void *ptr, size_t size, size_t nmemb, FILE *stream)
-{ 
-  FRESULT res_sd; // file operation results
-  UINT fnum=0;      // The number of files successfully read and written
-  res_sd = f_read (stream, ptr, size*nmemb , &fnum);
-  if (res_sd == FR_OK)
-   return fnum;
-  else 
-   return 0;
+{
+    if (!stream || !ptr || size == 0 || nmemb == 0)
+        return 0;
+    return fread(ptr, size, nmemb, stream);
 }
 
 int luat_fs_fseek(FILE* stream, long int offset, int origin)
-{ 
+{
+    if (!stream)
+        return -1;
+    // stdio:fseek уже принимает SEEK_SET/SEEK_CUR/SEEK_END
+    return (fseek(stream, offset, origin) == 0) ? 0 : -1;
+}
 
-    int npos = f_tell(stream);
-    if (origin == SEEK_SET) {
-        npos = offset;
-    } else if (origin == SEEK_CUR) {
-        npos += offset;
-    } else if (origin == SEEK_END) {
-        npos = f_size(stream);
-    }
-    FRESULT ret = f_lseek(stream, npos);
-    if (ret == FR_OK) {
-        return 0;
-    }
-    return -1;
-
+long luat_fs_ftell(FILE* stream)
+{
+    if (!stream)
+        return -1;
+    return ftell(stream);
 }
 
 int luat_fs_fclose(FILE* stream)
-{ 
-  f_close (stream);
-  return 0;
-};
+{
+    if (!stream)
+        return -1;
+    return (fclose(stream) == 0) ? 0 : -1;
+}
 
+// ---------------- LCD ----------------
 
-int luat_lcd_draw(luat_lcd_conf_t* conf, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, luat_color_t* color)
-{ 
-/*
-int x  = x1;
-int y  = y1;
-int sx = x2 - x1 + 1;
-int sy = y2 - y1 + 1;
-*/
-
-UTFT_drawBitmap24bpp ( x1, y1, x2 - x1 + 1, y2 - y1 + 1, color);
-
-//UTFT_drawBitmap ( x1, y1, x2 - x1 + 1, y2 - y1 + 1, color,1);
-//UTFT_drawBitmapLEBF ( x1, y1, x2 - x1 + 1, y2 - y1 + 1, color);
-return 0;
-};
-
-
- 
+int luat_lcd_draw(luat_lcd_conf_t* conf,
+                  uint16_t x1, uint16_t y1,
+                  uint16_t x2, uint16_t y2,
+                  luat_color_t* color)
+{
+    UTFT_drawBitmap24bpp(x1, y1, x2 - x1 + 1, y2 - y1 + 1, color);
+    return 0;
+}
