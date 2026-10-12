@@ -1251,7 +1251,7 @@ UTFT_rotateChar (byte c, int x, int y, int pos, int deg)
         таблица перекодировки. часть русских букв переиспользует английские,
         за сим линейного преобразования нет, нужна таблица соответствий.
 */
-uint8_t utf8_rus_charmap[] PROGMEM = {
+uint8_t utf8_rus_charmap[] = {
   'A', // A		0
   128, //Б		1
   'B', //В		2
