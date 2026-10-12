@@ -16,8 +16,8 @@
 
 // #define MY_DEBUG // uncomment in for debug flow
 
-uint8_t
-u8x8_byte_linux_spi (u8x8_linux_i2c_t *u8x8_riot_ptr, uint8_t msg, uint8_t arg_int, void *arg_ptr)
+uint32_t
+u8x8_byte_linux_spi (u8x8_linux_i2c_t *u8x8_riot_ptr, uint8_t msg, uint32_t arg_int, void *arg_ptr)
 {
 
   /* assert that user_ptr is correctly set */
@@ -193,8 +193,8 @@ u8x8_linux_spi_release (u8x8_linux_i2c_t *u8x8_riot_ptr)
   gpiod_chip_close (u8x8_riot_ptr->xDC_chip);
 }
 
-uint8_t
-u8x8_linux_spi_delay (u8x8_linux_i2c_t *u8x8_riot_ptr, uint8_t msg, uint8_t arg_int,
+uint32_t
+u8x8_linux_spi_delay (u8x8_linux_i2c_t *u8x8_riot_ptr, uint8_t msg, uint32_t arg_int,
                       void *arg_ptr)
 {
   struct timespec req;

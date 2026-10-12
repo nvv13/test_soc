@@ -195,12 +195,12 @@ static u8x8_linux_i2c_t *u8x8_ri_ptr;
 static void
 sbi_RS (void)
 {
-	u8x8_byte_linux_spi (u8x8_ri_ptr, U8X8_MSG_BYTE_SET_DC, 0, NULL);
+	u8x8_byte_linux_spi (u8x8_ri_ptr, U8X8_MSG_BYTE_SET_DC, 1, NULL);
 }
 static void
 cbi_RS (void)
 {
-	u8x8_byte_linux_spi (u8x8_ri_ptr, U8X8_MSG_BYTE_SET_DC, 1, NULL);
+	u8x8_byte_linux_spi (u8x8_ri_ptr, U8X8_MSG_BYTE_SET_DC, 0, NULL);
 }
 static void UTFT_LCD_Writ_Bus (char VH, char VL, byte mode, byte display_serial_mode)
 {

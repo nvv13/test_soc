@@ -119,10 +119,10 @@ typedef struct
 
 } u8x8_linux_i2c_t;
 
-uint8_t u8x8_byte_linux_spi (u8x8_linux_i2c_t *u8x8_riot_ptr, uint8_t msg, uint8_t arg_int,
+uint32_t u8x8_byte_linux_spi (u8x8_linux_i2c_t *u8x8_riot_ptr, uint8_t msg, uint32_t arg_int,
                              void *arg_ptr);
 
-uint8_t u8x8_linux_spi_delay (u8x8_linux_i2c_t *u8x8_riot_ptr, uint8_t msg, uint8_t arg_int,
+uint32_t u8x8_linux_spi_delay (u8x8_linux_i2c_t *u8x8_riot_ptr, uint8_t msg, uint32_t arg_int,
                               void *arg_ptr);
 
 void u8x8_linux_spi_release (u8x8_linux_i2c_t *u8x8_riot_ptr);
