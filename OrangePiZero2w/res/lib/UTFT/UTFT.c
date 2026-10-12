@@ -2027,9 +2027,9 @@ UTFT_store_to_psram(bool b_Set_store_to_psram)
   if(b_Set_store_to_psram)
     {
       int i_size=(disp_x_size + 1) * (disp_y_size + 1) * (display_bitpixel==24?3:2);
-      if(full_buf_psram == NULL && d_psram_check())
+      if(full_buf_psram == NULL)
         {
-          full_buf_psram = dram_heap_malloc (i_size);
+          full_buf_psram = malloc (i_size);
           if(full_buf_psram!=NULL)
             LOG (" UTFT_store_to_psram dram malloc %d Ok\n", i_size);
           else
@@ -2043,7 +2043,7 @@ UTFT_store_to_psram(bool b_Set_store_to_psram)
       store_to_psram=false;
       if(full_buf_psram!=NULL)
         {
-          dram_heap_free (full_buf_psram);
+          free (full_buf_psram);
           full_buf_psram=NULL;
         }
     }
