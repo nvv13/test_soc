@@ -97,7 +97,7 @@ static u8 display_bitpixel;
 static u8 _SPI_16bit=0;
 
 
-static void UTFT_LCD_Writ_Bus (char VH, char VL, byte mode);
+static void UTFT_LCD_Writ_Bus (char VH, char VL, byte mode, byte display_serial_mode);
 static void UTFT_LCD_Writ_Bus_SPI (const u8 *buf, u32 len);
 static void UTFT_LCD_Write_COM (char VL);
 static void UTFT_LCD_Write_DATA (char VH, char VL);
@@ -244,12 +244,12 @@ LCD_WR_REG (u16 Value)
     {
       cbi_RS ();
       LCD_Write_1byte_Flag = 0;
-      UTFT_LCD_Writ_Bus (Value >> 8, Value & 0xff, display_transfer_mode);
+      UTFT_LCD_Writ_Bus (Value >> 8, Value & 0xff, display_transfer_mode, display_serial_mode);
     }
   else
    {
-      UTFT_LCD_Writ_Bus (0x00, Value >> 8  , display_transfer_mode);
-      UTFT_LCD_Writ_Bus (0x00, Value & 0xff, display_transfer_mode);
+      UTFT_LCD_Writ_Bus (0x00, Value >> 8  , display_transfer_mode, display_serial_mode);
+      UTFT_LCD_Writ_Bus (0x00, Value & 0xff, display_transfer_mode, display_serial_mode);
    }
 }
 
@@ -266,11 +266,11 @@ UTFT_LCD_Write_COM (char VL)
     {
       cbi_RS ();
       LCD_Write_1byte_Flag = 1;
-      UTFT_LCD_Writ_Bus (0x00, VL, display_transfer_mode);
+      UTFT_LCD_Writ_Bus (0x00, VL, display_transfer_mode, display_serial_mode);
       LCD_Write_1byte_Flag = 0;
     }
   else
-    UTFT_LCD_Writ_Bus (0x00, VL, display_transfer_mode);
+    UTFT_LCD_Writ_Bus (0x00, VL, display_transfer_mode, display_serial_mode);
 }
 
 void
@@ -307,11 +307,11 @@ UTFT_LCD_Write_DATA_Pixel (char VH,
       else
         {
           UTFT_LCD_Writ_Bus (0x01, ((color & 0xF800) >> 8),
-                             display_transfer_mode);
+                             display_transfer_mode, display_serial_mode);
           UTFT_LCD_Writ_Bus (0x01, ((color & 0x07E0) >> 3),
-                             display_transfer_mode);
+                             display_transfer_mode, display_serial_mode);
           UTFT_LCD_Writ_Bus (0x01, ((color & 0x001F) << 3),
-                             display_transfer_mode);
+                             display_transfer_mode, display_serial_mode);
         }
     }
   else
@@ -338,9 +338,9 @@ UTFT_LCD_Write_DATA_Pixel24bpp (
         }
       else
         {
-          UTFT_LCD_Writ_Bus (0x01, ~VR, display_transfer_mode);
-          UTFT_LCD_Writ_Bus (0x01, ~VG, display_transfer_mode);
-          UTFT_LCD_Writ_Bus (0x01, ~VB, display_transfer_mode);
+          UTFT_LCD_Writ_Bus (0x01, ~VR, display_transfer_mode, display_serial_mode);
+          UTFT_LCD_Writ_Bus (0x01, ~VG, display_transfer_mode, display_serial_mode);
+          UTFT_LCD_Writ_Bus (0x01, ~VB, display_transfer_mode, display_serial_mode);
         }
     }
   else
@@ -358,7 +358,7 @@ UTFT_LCD_Write_DATA (char VH, char VL)
   if (display_transfer_mode != 1)
     {
       sbi_RS ();
-      UTFT_LCD_Writ_Bus (VH, VL, display_transfer_mode);
+      UTFT_LCD_Writ_Bus (VH, VL, display_transfer_mode, display_serial_mode);
     }
   else
     {
@@ -370,8 +370,8 @@ UTFT_LCD_Write_DATA (char VH, char VL)
         }
       else
         {
-          UTFT_LCD_Writ_Bus (0x01, VH, display_transfer_mode);
-          UTFT_LCD_Writ_Bus (0x01, VL, display_transfer_mode);
+          UTFT_LCD_Writ_Bus (0x01, VH, display_transfer_mode, display_serial_mode);
+          UTFT_LCD_Writ_Bus (0x01, VL, display_transfer_mode, display_serial_mode);
         }
     }
 }
@@ -383,11 +383,11 @@ UTFT_LCD_Write_DATA2 (char VL)
     {
       sbi_RS ();
       LCD_Write_1byte_Flag = 1;
-      UTFT_LCD_Writ_Bus (0x00, VL, display_transfer_mode);
+      UTFT_LCD_Writ_Bus (0x00, VL, display_transfer_mode, display_serial_mode);
       LCD_Write_1byte_Flag = 0;
     }
   else
-    UTFT_LCD_Writ_Bus (0x01, VL, display_transfer_mode);
+    UTFT_LCD_Writ_Bus (0x01, VL, display_transfer_mode, display_serial_mode);
 }
 
 void
@@ -946,7 +946,7 @@ UTFT_fillScr2 (word color)
           for (i = 0; i < ((disp_x_size + 1) * (disp_y_size + 1)); i++)
             {
               if (display_transfer_mode != 1)
-                UTFT_LCD_Writ_Bus (ch, cl, display_transfer_mode);
+                UTFT_LCD_Writ_Bus (ch, cl, display_transfer_mode, display_serial_mode);
               else
                 UTFT_LCD_Write_DATA_Pixel (ch, cl);
             }

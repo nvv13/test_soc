@@ -256,8 +256,9 @@ UTFT_LCD_Writ_Bus_SPI (const u8 *buf, u32 len)
 //    n_spi_write (buf, len);
 }
 
+
 void
-UTFT_LCD_Writ_Bus (char VH, char VL, byte mode)
+UTFT_LCD_Writ_Bus (char VH, char VL, byte mode, byte display_serial_mode)
 {
   switch (mode)
     {
