@@ -100,52 +100,52 @@ extern "C"
 #define PORTRAIT 0
 #define LANDSCAPE 1
 
-#define HX8347A 0
-#define ILI9327 1
-#define SSD1289 2
-#define ILI9325C 3
-#define ILI9325D_8 4
-#define ILI9325D_16 5
-#define HX8340B_8 6
-#define HX8340B_S 7
-#define HX8352A 8
+//#define HX8347A 0
+//#define ILI9327 1
+//#define SSD1289 2
+//#define ILI9325C 3
+//#define ILI9325D_8 4
+//#define ILI9325D_16 5
+//#define HX8340B_8 6
+//#define HX8340B_S 7
+//#define HX8352A 8
 #define ST7735 9
 #define PCF8833 10
-#define S1D19122 11
-#define SSD1963_480 12
-#define SSD1963_800 13
-#define S6D1121_8 14
-#define S6D1121_16 15
-#define SSD1289LATCHED 16
+//#define S1D19122 11
+//#define SSD1963_480 12
+//#define SSD1963_800 13
+//#define S6D1121_8 14
+//#define S6D1121_16 15
+//#define SSD1289LATCHED 16
 //#define NOT_IN_USE	17
 //#define NOT_IN_USE	18
-#define SSD1289_8 19
-#define SSD1963_800ALT 20
-#define ILI9481 21
-#define ILI9325D_16ALT 22
-#define S6D0164 23
+//#define SSD1289_8 19
+//#define SSD1963_800ALT 20
+//#define ILI9481 21
+//#define ILI9325D_16ALT 22
+//#define S6D0164 23
 #define ST7735S 24
 #define ILI9341_S5P 25
-#define ILI9341_S4P 26
-#define R61581 27
-#define ILI9486 28
-#define CPLD 29
+//#define ILI9341_S4P 26
+//#define R61581 27
+//#define ILI9486 28
+//#define CPLD 29
 #define HX8353C 30
 #define ST7735_ALT 31
-#define ILI9341_UNO 32
-#define ILI9341_MEGA 33
-#define ILI9327_UNO 34
-#define HX8357C 35
+//#define ILI9341_UNO 32
+//#define ILI9341_MEGA 33
+//#define ILI9327_UNO 34
+//#define HX8357C 35
 #define ILI9225B 36
 #define TFT00_96SP 37
 #define TFT01_3SP 38
 #define TFT01_47V89 39
 #define TFT01_14V89 40
 #define TFT01_69V89 41
-#define TFT_320QDT_9341 42
+//#define TFT_320QDT_9341 42
 #define TFT2_4SP_9341 43
 #define TFT02_0V89 44
-#define TFT_397T_NT35510 45
+//#define TFT_397T_NT35510 45
 #define TFT3_2SP_9341 46
 #define TFT3_5SP_9488 47
 #define MHS3528 48
@@ -156,70 +156,70 @@ extern "C"
 #define MSP3526 52
 #define TFT01_9V89 53
 
-#define ITDB32 0 // HX8347-A (16bit)
-#define ITDB32WC 1 // ILI9327  (16bit)
-#define TFT01_32W 1 // ILI9327	(16bit)
-#define ITDB32S 2 // SSD1289  (16bit)
-#define TFT01_32 2 // SSD1289  (16bit)
-#define CTE32 2 // SSD1289  (16bit)
-#define ITDB24 3 // ILI9325C (8bit)
-#define ITDB24D 4 // ILI9325D (8bit)
-#define ITDB24DWOT 4 // ILI9325D (8bit)
-#define ITDB28 4 // ILI9325D (8bit)
-#define TFT01_24_8 4 // ILI9325D (8bit)
-#define DMTFT24104 4 // ILI9325D (8bit)
-#define DMTFT28103 4 // ILI9325D (8bit)
-#define TFT01_24_16 5 // ILI9325D (16bit)
-#define ITDB22 6 // HX8340-B (8bit)
-#define ITDB22SP 7 // HX8340-B (Serial 4Pin)
-#define ITDB32WD 8 // HX8352-A (16bit)
-#define TFT01_32WD 8 // HX8352-A	(16bit)
-#define CTE32W 8 // HX8352-A	(16bit)
+//#define ITDB32 0 // HX8347-A (16bit)
+//#define ITDB32WC 1 // ILI9327  (16bit)
+//#define TFT01_32W 1 // ILI9327	(16bit)
+//#define ITDB32S 2 // SSD1289  (16bit)
+//#define TFT01_32 2 // SSD1289  (16bit)
+//#define CTE32 2 // SSD1289  (16bit)
+//#define ITDB24 3 // ILI9325C (8bit)
+//#define ITDB24D 4 // ILI9325D (8bit)
+//#define ITDB24DWOT 4 // ILI9325D (8bit)
+//#define ITDB28 4 // ILI9325D (8bit)
+//#define TFT01_24_8 4 // ILI9325D (8bit)
+//#define DMTFT24104 4 // ILI9325D (8bit)
+//#define DMTFT28103 4 // ILI9325D (8bit)
+//#define TFT01_24_16 5 // ILI9325D (16bit)
+//#define ITDB22 6 // HX8340-B (8bit)
+//#define ITDB22SP 7 // HX8340-B (Serial 4Pin)
+//#define ITDB32WD 8 // HX8352-A (16bit)
+//#define TFT01_32WD 8 // HX8352-A	(16bit)
+//#define CTE32W 8 // HX8352-A	(16bit)
 #define ITDB18SP 9 // ST7735   (Serial 5Pin)
 #define LPH9135 10 // PCF8833	(Serial 5Pin)
-#define ITDB25H 11 // S1D19122	(16bit)
-#define ITDB43 12 // SSD1963	(16bit) 480x272
-#define TFT01_43 12 // SSD1963	(16bit) 480x272
-#define ITDB50 13 // SSD1963	(16bit) 800x480
-#define TFT01_50 13 // SSD1963	(16bit) 800x480
-#define CTE50 13 // SSD1963	(16bit) 800x480
-#define EHOUSE50 13 // SSD1963	(16bit) 800x480
-#define ITDB24E_8 14 // S6D1121	(8bit)
-#define TFT01_24R2 14 // S6D1121	(8bit)
-#define ITDB24E_16 15 // S6D1121	(16bit)
-#define INFINIT32                                                             \
-  16 // SSD1289	(Latched 16bit) -- Legacy, will be removed later
-#define ELEE32_REVA 16 // SSD1289	(Latched 16bit)
+//#define ITDB25H 11 // S1D19122	(16bit)
+//#define ITDB43 12 // SSD1963	(16bit) 480x272
+//#define TFT01_43 12 // SSD1963	(16bit) 480x272
+//#define ITDB50 13 // SSD1963	(16bit) 800x480
+//#define TFT01_50 13 // SSD1963	(16bit) 800x480
+//#define CTE50 13 // SSD1963	(16bit) 800x480
+//#define EHOUSE50 13 // SSD1963	(16bit) 800x480
+//#define ITDB24E_8 14 // S6D1121	(8bit)
+//#define TFT01_24R2 14 // S6D1121	(8bit)
+//#define ITDB24E_16 15 // S6D1121	(16bit)
+//#define INFINIT32  16 // SSD1289	(Latched 16bit) -- Legacy, will be removed later
+//#define ELEE32_REVA 16 // SSD1289	(Latched 16bit)
 //#define NOT_IN_USE	17
 //#define NOT_IN_USE	18
-#define ELEE32_REVB 19 // SSD1289	(8bit)
-#define TFT01_70 20 // SSD1963	(16bit) 800x480 Alternative Init
-#define CTE70 20 // SSD1963	(16bit) 800x480 Alternative Init
-#define EHOUSE70 20 // SSD1963	(16bit) 800x480 Alternative Init
-#define CTE32HR 21 // ILI9481	(16bit)
-#define TFT32MEGA 21 // ILI9481	(16bit)
-#define CTE28 22 // ILI9325D (16bit) Alternative Init
-#define TFT01_28 22 // ILI9325D (16bit) Alternative Init
-#define CTE22 23 // S6D0164	(8bit)
-#define TFT01_22 23 // S6D0164	(8bit)
-#define DMTFT22102 23 // S6D0164  (8bit)
+//#define ELEE32_REVB 19 // SSD1289	(8bit)
+//#define TFT01_70 20 // SSD1963	(16bit) 800x480 Alternative Init
+//#define CTE70 20 // SSD1963	(16bit) 800x480 Alternative Init
+//#define EHOUSE70 20 // SSD1963	(16bit) 800x480 Alternative Init
+//#define CTE32HR 21 // ILI9481	(16bit)
+//#define TFT32MEGA 21 // ILI9481	(16bit)
+//#define CTE28 22 // ILI9325D (16bit) Alternative Init
+//#define TFT01_28 22 // ILI9325D (16bit) Alternative Init
+//#define CTE22 23 // S6D0164	(8bit)
+//#define TFT01_22 23 // S6D0164	(8bit)
+//#define DMTFT22102 23 // S6D0164  (8bit)
 #define TFT01_18SP 24 // ST7735S  (Serial 5Pin)
 #define TFT01_22SP 25 // ILI9341	(Serial 5Pin)
 #define TFT01_24SP 25 // ILI9341	(Serial 5Pin)
 #define TFT22SHLD 25 // ILI9341	(Serial 5Pin)
 #define DMTFT28105 25 // ILI9341  (Serial 5Pin)
-#define MI0283QT9 26 // ILI9341	(Serial 4Pin)
-#define CTE35IPS 27 // R61581	(16bit)
-#define CTE40 28 // ILI9486	(16bit)
-#define EHOUSE50CPLD 29 // CPLD		(16bit)
-#define CTE50CPLD 29 // CPLD		(16bit)
-#define CTE70CPLD 29 // CPLD		(16bit)
+//#define MI0283QT9 26 // ILI9341	(Serial 4Pin)
+//#define CTE35IPS 27 // R61581	(16bit)
+//#define CTE40 28 // ILI9486	(16bit)
+//#define EHOUSE50CPLD 29 // CPLD		(16bit)
+//#define CTE50CPLD 29 // CPLD		(16bit)
+//#define CTE70CPLD 29 // CPLD		(16bit)
 #define DMTFT18101 30 // HX8353C  (Serial 5Pin)
 #define TFT18SHLD 31 // ST7735	(Serial 5Pin) Alternative Init
-#define TFT28UNO 32 // ILI9341	(8bit)
-#define TFT28MEGA 33 // ILI9341	(8bit)
-#define TFT395UNO 34 // ILI9327	(8bit)
-#define TFT32MEGA_2 35 // HX8357C	(16bit)
+//#define TFT28UNO 32 // ILI9341	(8bit)
+//#define TFT28MEGA 33 // ILI9341	(8bit)
+//#define TFT395UNO 34 // ILI9327	(8bit)
+//#define TFT32MEGA_2 35 // HX8357C	(16bit)
+
 
 #define SERIAL_4PIN 4
 #define SERIAL_5PIN 5
