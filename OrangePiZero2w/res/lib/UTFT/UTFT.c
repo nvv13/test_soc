@@ -106,9 +106,9 @@ static byte fch, fcl, bch, bcl;
 static byte orient;
 static long disp_x_size, disp_y_size;
 static byte display_model, display_transfer_mode, display_serial_mode;
-static byte *P_RS, *P_WR, *P_CS, *P_RST, *P_SDA, *P_SCL, *P_ALE;
-static byte B_RS, B_WR, B_CS, B_RST, B_SDA, B_SCL, B_ALE;
-static byte __p1, __p2, __p3, __p4, __p5;
+//static byte *P_RS, *P_WR, *P_CS, *P_RST, *P_SDA, *P_SCL, *P_ALE;
+//static byte B_RS, B_WR, B_CS, B_RST, B_SDA, B_SCL, B_ALE;
+//static byte __p1, __p2, __p3, __p4, __p5;
 static _current_font cfont;
 static boolean _transparent;
 static boolean LCD_Write_1byte_Flag = 0;
@@ -213,8 +213,8 @@ static void LCD_WR_DATA (u8 VL);
 void
 UTFT_UTFT (byte model, u8x8_linux_i2c_t *u8x8_riot_ptr)
 {
- byte RS, WR, CS, RST, SER;
- u32 spi_freq;
+ //byte RS, WR, CS, RST, SER;
+ //u32 spi_freq;
 //	обозначение:				--		--		CTE32		--		DMTFT24104	--		--		--		CTE32W	    --			LPH9135		--		--		CTE50		--		--		ELEE32_REVA	--			--			ELEE32_REVB	CTE70		CTE32HR		CTE28		CTE22		--		DMTFT28105	MI0283QT9	CTE35IPS	CTE40		CTE50CPLD	DMTFT18101	--		--		--		--		--
 //						--		--		--		--		DMTFT28103	--		--		--		--	    --			--		--		--		EHOUSE50	--		--		INFINIT32	--			--			--		EHOUSE70	--		--		DMTFT22102	--		--		--		--		--		CTE70CPLD	--		--		--		--		--		--
 //						ITDB32		ITDB32WC	ITDB32S		ITDB24		ITDB28		--		ITDB22		ITDB22SP	ITDB32WD    ITDB18SP		--		ITDB25H		ITDB43		ITDB50		ITDB24E_8	--		--		--			--			--		--		--		--		--		--		--		--		--		--		EHOUSE50CPLD    --		--		--		--		--		--
@@ -238,13 +238,14 @@ UTFT_UTFT (byte model, u8x8_linux_i2c_t *u8x8_riot_ptr)
   _SPI_16bit= SPI_16bit[model];
   display_model = model;
   u8x8_ri_ptr=u8x8_riot_ptr;
-  __p1 = RS;
-  __p2 = WR;
-  __p3 = CS;
-  __p4 = RST;
-  __p5 = SER;
+  //__p1 = RS;
+  //__p2 = WR;
+  //__p3 = CS;
+  //__p4 = RST;
+  //__p5 = SER;
   _spi_freq = u8x8_ri_ptr->speed;
   _spi_mode = spi_md[model];
+  u8x8_ri_ptr->mode=spi_md[model];
 
   if (display_transfer_mode == SERIAL_4PIN)
     {
