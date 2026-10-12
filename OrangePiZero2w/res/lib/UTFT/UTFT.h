@@ -255,7 +255,7 @@ extern "C"
 
 #define LOG(...) printf (__VA_ARGS__)
 
-//  typedef u8 byte;
+ typedef unsigned char byte;
 //  typedef u16 word;
 
 #define bitmapdatatype unsigned short *
