@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "mod1/UTFT.h"
+#include "UTFT.h"
 
 #define LUAT_LOG_TAG "log"
 #include "luat_log.h"

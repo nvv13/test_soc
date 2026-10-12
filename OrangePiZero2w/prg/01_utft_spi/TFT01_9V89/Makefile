@@ -1,10 +1,10 @@
 
-CFLAGS = -g -Wall -I../UTFT/.  -ffunction-sections -fdata-sections
+CFLAGS = -g -Wall -I../UTFT/. -I../UTFT/jpeg/. -ffunction-sections -fdata-sections
 
 LDFLAGS = -L/usr/local/lib -Wl,--gc-sections
 LDLIBS    = -lgpiod -lm 
 
-SRC = $(shell ls ../UTFT/*.c) main.c 
+SRC = $(shell ls ../UTFT/*.c) $(shell ls ../UTFT/jpeg/*.c) main.c 
 
 OBJ = $(SRC:.c=.o) 
 
