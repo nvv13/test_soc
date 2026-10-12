@@ -19,7 +19,7 @@ main (void)
 
     // Настройки SPI
     .adapter_nr = 1, /* /dev/spidev1.0 */
-    .mode = SPI_MODE_0, .bits = 8, .speed = 50000000,
+    .mode = SPI_MODE_0, .bits = 8, .speed = 60000000,
 
     .iDC_piochip = 0, // gpiochip0
     .iDC_line = 260,  // PI4
