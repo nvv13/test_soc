@@ -44,12 +44,34 @@
 
 #include "memorysaver.h"
 
-#define tls_mem_alloc(n)  malloc(n)
-#define pgm_read_byte(addr)  (*(const unsigned char *)(addr))
-#define pgm_read_word(addr) (*(const u16 *)(addr))
 
+
+#include <stdint.h>
+
+#ifndef tls_mem_alloc
+#define tls_mem_alloc(n)  malloc(n)
+#endif
+
+#ifndef pgm_read_byte
+#define pgm_read_byte(addr)  (*(const uint8_t  *)(addr))
+#endif
+#ifndef pgm_read_word
+#define pgm_read_word(addr)  (*(const uint16_t *)(addr))
+#endif
+#ifndef pgm_read_dword
+#define pgm_read_dword(addr) (*(const uint32_t *)(addr))
+#endif
+
+#ifndef swap_word
 #define swap_word(a, b)  do { int _t = (a); (a) = (b); (b) = _t; } while (0)
+#endif
+#ifndef swap_int
 #define swap_int(a, b)   do { int _t = (a); (a) = (b); (b) = _t; } while (0)
+#endif
+
+#ifndef fontbyte
+#define fontbyte(x) pgm_read_byte(&cfont.font[x])
+#endif
 
 /*
         The functions and variables below should not normally be used.
