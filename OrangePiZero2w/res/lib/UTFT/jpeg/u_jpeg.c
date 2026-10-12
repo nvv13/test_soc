@@ -29,7 +29,7 @@ typedef struct {
 } IODEV;
 
 
-static size_t file_in_func (JDEC* jd, uint8_t* buff, unsigned int nbyte){
+static size_t file_in_func (JDEC* jd, uint8_t* buff, size_t nbyte){
     IODEV *dev = (IODEV*)jd->device;   /* Device identifier for the session (5th argument of jd_prepare function) */
     if (buff) {
         /* Read bytes from input stream */
