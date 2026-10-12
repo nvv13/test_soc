@@ -55,7 +55,7 @@ int scan_files(char *path)
             // формируем "0:%s" для совместимости с FatFS-стилем путей,
             // если UTFT_ADD_lcd_draw_jpeg ожидает именно такой префикс
             char FileName[512];
-            snprintf(FileName, sizeof(FileName), "0:%s", full);
+            snprintf(FileName, sizeof(FileName), "%s", full);
 
             if (//strstr(FileName, "320x170") != NULL &&
                 strstr(FileName, ".jpg")    != NULL) {
