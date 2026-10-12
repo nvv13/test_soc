@@ -363,7 +363,7 @@ static void
 LCD_WR_REG (u16 Value)
 {
           cbi_RS ();
-          u8 buf[2] = { VH, VL };
+          u8 buf[2] = {(u16 >> 8) & 0xFF, u16 & 0xFF};
           UTFT_LCD_Writ_Bus_SPI (buf, 2);
 }
 
