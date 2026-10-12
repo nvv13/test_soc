@@ -126,34 +126,34 @@ cbi_SDA (void)
 {
 }
 
-static void
-cbi (uint32_t *PORT_REG, u8 PIN)
-{
-}
+//static void
+//cbi (uint32_t *PORT_REG, u8 PIN)
+//{
+//}
 
-static void
-sbi (uint32_t *PORT_REG, u8 PIN)
-{
-}
+//static void
+//sbi (uint32_t *PORT_REG, u8 PIN)
+//{
+//}
 
 //#define pulse_high(reg, bitmask) sbi(reg, bitmask); cbi(reg, bitmask);
 //#define pulse_low(reg, bitmask) cbi(reg, bitmask); sbi(reg, bitmask);
 
-static void
-pulse_low_SCL (void)
-{
-}
+//static void
+//pulse_low_SCL (void)
+//{
+//}
 
-static void
-pulse_low_WR_repeat (u32 u32_count)
-{
-}
+//static void
+//pulse_low_WR_repeat (u32 u32_count)
+//{
+//}
 
-static void
-pulse_low_WR (void)
-{
-  pulse_low_WR_repeat (1);
-}
+//static void
+//pulse_low_WR (void)
+//{
+//  pulse_low_WR_repeat (1);
+//}
 
 
 
@@ -191,6 +191,27 @@ static u8x8_linux_i2c_t *u8x8_ri_ptr;
 
 
 
+
+static void
+sbi_RST (void)
+{
+}
+static void
+cbi_RST (void)
+{
+}
+
+
+static void
+sbi_CS (void)
+{
+	u8x8_byte_linux_spi (u8x8_ri_ptr, U8X8_MSG_BYTE_END_TRANSFER, 0, NULL);
+}
+static void
+cbi_CS (void)
+{
+	u8x8_byte_linux_spi (u8x8_ri_ptr, U8X8_MSG_BYTE_START_TRANSFER, 0, NULL);
+}
 
 static void
 sbi_RS (void)
@@ -473,14 +494,14 @@ UTFT_InitLCD (byte orientation)
 
   UTFT__hw_special_init ();
 
-  sbi (P_RST, B_RST);
+  sbi_RST();
   delay (5);
-  cbi (P_RST, B_RST);
+  cbi_RST();
   delay (15);
-  sbi (P_RST, B_RST);
+  sbi_RST();
   delay (15);
 
-  cbi (P_CS, B_CS);
+  cbi_CS();
 
   switch (display_model)
     {
@@ -587,7 +608,7 @@ UTFT_InitLCD (byte orientation)
 #include "tft_drivers/st7796/initlcd.h"
 #endif
     }
-  sbi (P_CS, B_CS);
+  sbi_CS();
 
   UTFT_setColor (255, 255, 255);
   UTFT_setBackColor (0, 0, 0);
@@ -838,7 +859,7 @@ UTFT_drawCircle (int x, int y, int radius)
   int x1 = 0;
   int y1 = radius;
 
-  cbi (P_CS, B_CS);
+  cbi_CS();
   UTFT_setXY (x, y + radius, x, y + radius);
   UTFT_LCD_Write_DATA_Pixel (fch, fcl);
   UTFT_setXY (x, y - radius, x, y - radius);
@@ -876,7 +897,7 @@ UTFT_drawCircle (int x, int y, int radius)
       UTFT_setXY (x - y1, y - x1, x - y1, y - x1);
       UTFT_LCD_Write_DATA_Pixel (fch, fcl);
     }
-  sbi (P_CS, B_CS);
+  sbi_CS();
   UTFT_clrXY ();
 }
 
@@ -915,7 +936,7 @@ UTFT_fillScr2 (word color)
   ch = (byte) (color >> 8);
   cl = (byte) (color & 0xFF);
 
-  cbi (P_CS, B_CS);
+  cbi_CS();
   UTFT_clrXY ();
     {
       if (display_serial_mode == SERIAL_5PIN)
@@ -981,7 +1002,7 @@ UTFT_fillScr2 (word color)
             }
         }
     }
-  sbi (P_CS, B_CS);
+  sbi_CS();
 }
 
 void
@@ -1041,10 +1062,10 @@ UTFT_setPixel (word color)
 void
 UTFT_drawPixel (int x, int y)
 {
-  cbi (P_CS, B_CS);
+  cbi_CS();
   UTFT_setXY (x, y, x, y);
   UTFT_setPixel ((fch << 8) | fcl);
-  sbi (P_CS, B_CS);
+  sbi_CS();
   UTFT_clrXY ();
 }
 
@@ -1063,7 +1084,7 @@ UTFT_drawLine (int x1, int y1, int x2, int y2)
       short ystep = y2 > y1 ? 1 : -1;
       int col = x1, row = y1;
 
-      cbi (P_CS, B_CS);
+      cbi_CS();
       if (dx < dy)
         {
           int t = -(dy >> 1);
@@ -1100,7 +1121,7 @@ UTFT_drawLine (int x1, int y1, int x2, int y2)
                 }
             }
         }
-      sbi (P_CS, B_CS);
+      sbi_CS();
     }
   UTFT_clrXY ();
 }
@@ -1113,13 +1134,13 @@ UTFT_drawHLine (int x, int y, int l)
       l = -l;
       x -= l;
     }
-  cbi (P_CS, B_CS);
+  cbi_CS();
   UTFT_setXY (x, y, x + l, y);
       for (int i = 0; i < l + 1; i++)
         {
           UTFT_LCD_Write_DATA_Pixel (fch, fcl);
         }
-  sbi (P_CS, B_CS);
+  sbi_CS();
   UTFT_clrXY ();
 }
 
@@ -1131,13 +1152,13 @@ UTFT_drawVLine (int x, int y, int l)
       l = -l;
       y -= l;
     }
-  cbi (P_CS, B_CS);
+  cbi_CS();
   UTFT_setXY (x, y, x, y + l);
       for (int i = 0; i < l + 1; i++)
         {
           UTFT_LCD_Write_DATA_Pixel (fch, fcl);
         }
-  sbi (P_CS, B_CS);
+  sbi_CS();
   UTFT_clrXY ();
 }
 
@@ -1148,7 +1169,7 @@ UTFT_printChar (byte c, int x, int y)
   word j;
   word temp;
 
-  cbi (P_CS, B_CS);
+  cbi_CS();
 
   if (!_transparent)
     {
@@ -1227,7 +1248,7 @@ UTFT_printChar (byte c, int x, int y)
         }
     }
 
-  sbi (P_CS, B_CS);
+  sbi_CS();
   UTFT_clrXY ();
 }
 
@@ -1240,7 +1261,7 @@ UTFT_rotateChar (byte c, int x, int y, int pos, int deg)
   double radian;
   radian = deg * 0.0175;
 
-  cbi (P_CS, B_CS);
+  cbi_CS();
 
   temp = ((c - cfont.offset) * ((cfont.x_size / 8) * cfont.y_size)) + 4;
   for (j = 0; j < cfont.y_size; j++)
@@ -1273,7 +1294,7 @@ UTFT_rotateChar (byte c, int x, int y, int pos, int deg)
         }
       temp += (cfont.x_size / 8);
     }
-  sbi (P_CS, B_CS);
+  sbi_CS();
   UTFT_clrXY ();
 }
 
@@ -1730,7 +1751,7 @@ else
     
     if (orient == PORTRAIT)
       {
-        cbi (P_CS, B_CS);
+        cbi_CS();
         UTFT_setXY (x, y, x + sx - 1, y + sy - 1);
         for (tc = 0; tc < (sx * sy); tc++)
           {
@@ -1744,11 +1765,11 @@ else
             UTFT_LCD_Write_DATA_Pixel24bpp (
                 VR, VG, VB); // rrrrrrrr gggggggg bbbbbbbb 888
           }
-        sbi (P_CS, B_CS);
+        sbi_CS();
       }
     else
       {
-        cbi (P_CS, B_CS);
+        cbi_CS();
         for (ty = 0; ty < sy; ty++)
           {
             UTFT_setXY (x, y + ty, x + sx - 1, y + ty);
@@ -1765,7 +1786,7 @@ else
                     VR, VG, VB); // rrrrrrrr gggggggg bbbbbbbb 888
               }
           }
-        sbi (P_CS, B_CS);
+        sbi_CS();
       }
     UTFT_clrXY ();
   }
@@ -1781,18 +1802,18 @@ UTFT_drawBitmap (int x, int y, int sx, int sy, bitmapdatatype data, int scale)
     {
       if (orient == PORTRAIT)
         {
-          cbi (P_CS, B_CS);
+          cbi_CS();
           UTFT_setXY (x, y, x + sx - 1, y + sy - 1);
           for (tc = 0; tc < (sx * sy); tc++)
             {
               col = pgm_read_word (&data[tc]);
               UTFT_setPixel (col);
             }
-          sbi (P_CS, B_CS);
+          sbi_CS();
         }
       else
         {
-          cbi (P_CS, B_CS);
+          cbi_CS();
           for (ty = 0; ty < sy; ty++)
             {
               UTFT_setXY (x, y + ty, x + sx - 1, y + ty);
@@ -1813,14 +1834,14 @@ UTFT_drawBitmap (int x, int y, int sx, int sy, bitmapdatatype data, int scale)
                   UTFT_LCD_Writ_Bus_SPI (buf_4x_line, sx*2); 
                 }
             }
-          sbi (P_CS, B_CS);
+          sbi_CS();
         }
     }
   else
     {
       if (orient == PORTRAIT)
         {
-          cbi (P_CS, B_CS);
+          cbi_CS();
           for (ty = 0; ty < sy; ty++)
             {
               UTFT_setXY (x, y + (ty * scale), x + ((sx * scale) - 1),
@@ -1833,11 +1854,11 @@ UTFT_drawBitmap (int x, int y, int sx, int sy, bitmapdatatype data, int scale)
                       UTFT_setPixel (col);
                   }
             }
-          sbi (P_CS, B_CS);
+          sbi_CS();
         }
       else
         {
-          cbi (P_CS, B_CS);
+          cbi_CS();
           for (ty = 0; ty < sy; ty++)
             {
               for (tsy = 0; tsy < scale; tsy++)
@@ -1852,7 +1873,7 @@ UTFT_drawBitmap (int x, int y, int sx, int sy, bitmapdatatype data, int scale)
                     }
                 }
             }
-          sbi (P_CS, B_CS);
+          sbi_CS();
         }
     }
   UTFT_clrXY ();
@@ -1871,7 +1892,7 @@ UTFT_drawBitmap2 (int x, int y, int sx, int sy, bitmapdatatype data, int deg,
     UTFT_drawBitmap (x, y, sx, sy, data, 0);
   else
     {
-      cbi (P_CS, B_CS);
+      cbi_CS();
       for (ty = 0; ty < sy; ty++)
         for (tx = 0; tx < sx; tx++)
           {
@@ -1887,7 +1908,7 @@ UTFT_drawBitmap2 (int x, int y, int sx, int sy, bitmapdatatype data, int deg,
             UTFT_setXY (newx, newy, newx, newy);
             UTFT_setPixel (col);
           }
-      sbi (P_CS, B_CS);
+      sbi_CS();
     }
   UTFT_clrXY ();
 }
@@ -1932,7 +1953,7 @@ UTFT_drawBitmapLEBF(int x, int y, int sx, int sy, bitmapdatatype data)
 void
 UTFT_lcdOff ()
 {
-  cbi (P_CS, B_CS);
+  cbi_CS();
   switch (display_model)
     {
     case PCF8833:
@@ -1943,13 +1964,13 @@ UTFT_lcdOff ()
       UTFT_LCD_Write_COM (0x0F);
       break;
     }
-  sbi (P_CS, B_CS);
+  sbi_CS();
 }
 
 void
 UTFT_lcdOn ()
 {
-  cbi (P_CS, B_CS);
+  cbi_CS();
   switch (display_model)
     {
     case PCF8833:
@@ -1960,13 +1981,13 @@ UTFT_lcdOn ()
       UTFT_LCD_Write_COM (0x0F);
       break;
     }
-  sbi (P_CS, B_CS);
+  sbi_CS();
 }
 
 void
 UTFT_setContrast (char c)
 {
-  cbi (P_CS, B_CS);
+  cbi_CS();
   switch (display_model)
     {
     case PCF8833:
@@ -1976,7 +1997,7 @@ UTFT_setContrast (char c)
       UTFT_LCD_Write_DATA2 (c);
       break;
     }
-  sbi (P_CS, B_CS);
+  sbi_CS();
 }
 
 int
@@ -2000,7 +2021,7 @@ UTFT_getDisplayYSize ()
 void
 UTFT_setBrightness (byte br)
 {
-  cbi (P_CS, B_CS);
+  cbi_CS();
   switch (display_model)
     {
     case CPLD:
@@ -2010,13 +2031,13 @@ UTFT_setBrightness (byte br)
       UTFT_LCD_Write_COM (0x0F);
       break;
     }
-  sbi (P_CS, B_CS);
+  sbi_CS();
 }
 
 void
 UTFT_setDisplayPage (byte page)
 {
-  cbi (P_CS, B_CS);
+  cbi_CS();
   switch (display_model)
     {
     case CPLD:
@@ -2026,13 +2047,13 @@ UTFT_setDisplayPage (byte page)
       UTFT_LCD_Write_COM (0x0F);
       break;
     }
-  sbi (P_CS, B_CS);
+  sbi_CS();
 }
 
 void
 UTFT_setWritePage (byte page)
 {
-  cbi (P_CS, B_CS);
+  cbi_CS();
   switch (display_model)
     {
     case CPLD:
@@ -2042,7 +2063,7 @@ UTFT_setWritePage (byte page)
       UTFT_LCD_Write_COM (0x0F);
       break;
     }
-  sbi (P_CS, B_CS);
+  sbi_CS();
 }
 
 
