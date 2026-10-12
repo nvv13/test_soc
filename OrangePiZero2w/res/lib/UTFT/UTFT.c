@@ -45,6 +45,7 @@
 #include "memorysaver.h"
 
 #define tls_mem_alloc(n)  malloc(n)
+#define pgm_read_word
 
 /*
         The functions and variables below should not normally be used.
