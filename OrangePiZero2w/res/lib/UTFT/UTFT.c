@@ -48,6 +48,9 @@
 #define pgm_read_byte(addr)  (*(const unsigned char *)(addr))
 #define pgm_read_word(addr) (*(const u16 *)(addr))
 
+#define swap_word(a, b)  do { int _t = (a); (a) = (b); (b) = _t; } while (0)
+#define swap_int(a, b)   do { int _t = (a); (a) = (b); (b) = _t; } while (0)
+
 /*
         The functions and variables below should not normally be used.
         They have been left publicly available for use in add-on libraries
