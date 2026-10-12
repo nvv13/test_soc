@@ -242,26 +242,3 @@ u8x8_linux_spi_delay (u8x8_linux_i2c_t *u8x8_riot_ptr, uint8_t msg, uint8_t arg_
 
 
 
-void
-UTFT__set_direction_registers (byte mode)
-{
-}
-void
-UTFT__fast_fill_16 (byte VH, byte VL, long pix)
-{
-//  if (pix > 0)
-//    UTFT_LCD_Writ_Bus (VH, VL, 16);
-//
-//  if (pix > 1)
-//    pulse_low_WR_repeat (pix - 1);
-}
-
-void
-UTFT__fast_fill_8 (int ch, long pix)
-{
-//  if (pix > 0)
-//    UTFT_LCD_Writ_Bus (ch, ch, 8);
-//
-//  if (pix > 1)
-//    pulse_low_WR_repeat ((pix - 1) * 2);
-}

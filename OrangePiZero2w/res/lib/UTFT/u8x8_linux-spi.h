@@ -129,9 +129,6 @@ void u8x8_linux_spi_release (u8x8_linux_i2c_t *u8x8_riot_ptr);
 
 
 
-void UTFT__set_direction_registers (byte mode);
-void UTFT__fast_fill_16 (byte VH, byte VL, long pix);
-void UTFT__fast_fill_8 (int ch, long pix);
 
 
 #endif // LINUXspi

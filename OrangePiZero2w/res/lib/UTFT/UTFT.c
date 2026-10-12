@@ -190,15 +190,17 @@ static u8 *full_buf_psram = NULL;
 static u8x8_linux_i2c_t *u8x8_ri_ptr;
 
 
+
+
 static void
 sbi_RS (void)
 {
-	u8x8_byte_linux_spi (u8x8_ri_ptr, U8X8_MSG_BYTE_SET_DC, 1, NULL);
+	u8x8_byte_linux_spi (u8x8_ri_ptr, U8X8_MSG_BYTE_SET_DC, 0, NULL);
 }
 static void
 cbi_RS (void)
 {
-	u8x8_byte_linux_spi (u8x8_ri_ptr, U8X8_MSG_BYTE_SET_DC, 0, NULL);
+	u8x8_byte_linux_spi (u8x8_ri_ptr, U8X8_MSG_BYTE_SET_DC, 1, NULL);
 }
 static void UTFT_LCD_Writ_Bus (char VH, char VL, byte mode, byte display_serial_mode)
 {
@@ -215,6 +217,7 @@ static void UTFT_LCD_Writ_Bus_SPI (const u8 *buf, u32 len)
 {
 u8x8_byte_linux_spi (u8x8_ri_ptr, U8X8_MSG_BYTE_SEND, len, buf);
 }
+
 static void UTFT_LCD_Write_COM (char VL);
 static void UTFT_LCD_Write_DATA (char VH, char VL);
 static void
@@ -236,9 +239,9 @@ static void UTFT_printChar (byte c, int x, int y);
 static void UTFT_setXY (word x1, word y1, word x2, word y2);
 static void UTFT_clrXY ();
 static void UTFT_rotateChar (byte c, int x, int y, int pos, int deg);
-//static void UTFT__set_direction_registers (byte mode);
-//static void UTFT__fast_fill_16 (byte VH, byte VL, long pix);
-//static void UTFT__fast_fill_8 (int ch, long pix);
+static void UTFT__set_direction_registers (byte mode){};
+static void UTFT__fast_fill_16 (byte VH, byte VL, long pix){};
+static void UTFT__fast_fill_8 (int ch, long pix){};
 static void UTFT__convert_float (char *buf, double num, int width, byte prec)
 {
   char format[10];
