@@ -73,6 +73,12 @@
 #define fontbyte(x) pgm_read_byte(&cfont.font[x])
 #endif
 
+void delay(int millesec)
+{
+      u8x8_linux_spi_delay (NULL, U8X8_MSG_DELAY_MILLI, millesec, NULL);
+}
+
+
 /*
         The functions and variables below should not normally be used.
         They have been left publicly available for use in add-on libraries
