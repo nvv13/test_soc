@@ -84,35 +84,35 @@ void delay(int millesec)
 #define LOW 0
 #define OUTPUT 1
 
-static void
-pinMode (byte PIN, byte b_mode)
-{
-};
+//static void
+//pinMode (byte PIN, byte b_mode)
+//{
+//};
 // volatile
-static uint32_t *
-portOutputRegister (u8 PIN)
-{
-      return (uint32_t *)0;
-};
-static u8
-digitalPinToPort (byte PIN)
-{
-  return PIN;
-};
-static u8
-digitalPinToBitMask (byte PIN)
-{
-  return PIN;
-};
-static void
-digitalWrite (byte PIN, int LEVEL)
-{
-};
+//static uint32_t *
+//portOutputRegister (u8 PIN)
+//{
+//      return (uint32_t *)0;
+//};
+//static u8
+//digitalPinToPort (byte PIN)
+//{
+//  return PIN;
+//};
+//static u8
+//digitalPinToBitMask (byte PIN)
+//{
+//  return PIN;
+//};
+//static void
+//digitalWrite (byte PIN, int LEVEL)
+//{
+//};
 
 //		P_RS	= portOutputRegister(digitalPinToPort(RS));
 //		B_RS	= digitalPinToBitMask(RS);
 
-static u8 sost_RS = 255;
+//static u8 sost_RS = 255;
 
 
 //static u8 sost_SDA = 255;
@@ -335,28 +335,6 @@ UTFT_UTFT (byte model, u8x8_linux_i2c_t *u8x8_riot_ptr)
         buf_4x_line = tls_mem_alloc (size * 4);
     }
 
-  if (display_transfer_mode != 1)
-    {
-    }
-  else
-    {
-      P_SDA = portOutputRegister (digitalPinToPort (RS));
-      B_SDA = digitalPinToBitMask (RS);
-      P_SCL = portOutputRegister (digitalPinToPort (WR));
-      B_SCL = digitalPinToBitMask (WR);
-      P_CS = portOutputRegister (digitalPinToPort (CS));
-      B_CS = digitalPinToBitMask (CS);
-      if (RST != NOTINUSE)
-        {
-          P_RST = portOutputRegister (digitalPinToPort (RST));
-          B_RST = digitalPinToBitMask (RST);
-        }
-      if (display_serial_mode != SERIAL_4PIN)
-        {
-          P_RS = portOutputRegister (digitalPinToPort (SER));
-          B_RS = digitalPinToBitMask (SER);
-        }
-    }
 }
 
 static void
