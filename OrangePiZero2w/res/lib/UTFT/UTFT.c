@@ -79,6 +79,96 @@ void delay(int millesec)
 }
 
 
+
+
+#define LOW 0
+#define OUTPUT 1
+
+static void
+pinMode (byte PIN, byte b_mode)
+{
+};
+// volatile
+static uint32_t *
+portOutputRegister (u8 PIN)
+{
+      return (uint32_t *)0;
+};
+static u8
+digitalPinToPort (byte PIN)
+{
+  return PIN;
+};
+static u8
+digitalPinToBitMask (byte PIN)
+{
+  return PIN;
+};
+static void
+digitalWrite (byte PIN, int LEVEL)
+{
+};
+
+//		P_RS	= portOutputRegister(digitalPinToPort(RS));
+//		B_RS	= digitalPinToBitMask(RS);
+
+static u8 sost_RS = 255;
+
+static void
+sbi_RS (void)
+{
+}
+static void
+cbi_RS (void)
+{
+}
+
+//static u8 sost_SDA = 255;
+
+static void
+sbi_SDA (void)
+{
+}
+static void
+cbi_SDA (void)
+{
+}
+
+static void
+cbi (uint32_t *PORT_REG, u8 PIN)
+{
+}
+
+static void
+sbi (uint32_t *PORT_REG, u8 PIN)
+{
+}
+
+//#define pulse_high(reg, bitmask) sbi(reg, bitmask); cbi(reg, bitmask);
+//#define pulse_low(reg, bitmask) cbi(reg, bitmask); sbi(reg, bitmask);
+
+static void
+pulse_low_SCL (void)
+{
+}
+
+static void
+pulse_low_WR_repeat (u32 u32_count)
+{
+}
+
+static void
+pulse_low_WR (void)
+{
+  pulse_low_WR_repeat (1);
+}
+
+
+
+
+
+
+
 /*
         The functions and variables below should not normally be used.
         They have been left publicly available for use in add-on libraries
@@ -102,6 +192,11 @@ static u8 _spi_mode;
 static u8 display_bitpixel;
 static u8 _SPI_16bit=0;
 
+static u8 *buf_4x_line = NULL;
+static bool store_to_psram=false;
+static u8 *full_buf_psram = NULL;
+static u8x8_linux_i2c_t *u8x8_ri_ptr;
+
 
 //static void UTFT_LCD_Writ_Bus (char VH, char VL, byte mode, byte display_serial_mode);
 //static void UTFT_LCD_Writ_Bus_SPI (const u8 *buf, u32 len);
@@ -115,7 +210,10 @@ static void UTFT_LCD_Write_DATA_Pixel24bpp (
     u8 VB); //точно известно что на выход пиксель идёт
 static void UTFT_LCD_Write_DATA2 (char VL);
 static void UTFT_LCD_Write_COM_DATA (char com1, int dat1);
-//static void UTFT__hw_special_init ();
+static void UTFT__hw_special_init (void)
+{
+u8x8_byte_linux_spi (u8x8_ri_ptr, U8X8_MSG_BYTE_INIT, 0, NULL);
+}
 static void UTFT_setPixel (word color);
 static void UTFT_drawHLine (int x, int y, int l);
 static void UTFT_drawVLine (int x, int y, int l);
@@ -131,12 +229,7 @@ static void UTFT_rotateChar (byte c, int x, int y, int pos, int deg);
 static void LCD_WR_REG (u16 Value);
 static void LCD_WR_DATA (u8 VL);
 
-static u8 *buf_4x_line = NULL;
-static bool store_to_psram=false;
-static u8 *full_buf_psram = NULL;
 
-// Подключение аппаратно-зависимых функций, для правильной работы
-// микроконтроллеров
 
 void
 UTFT_UTFT (byte model, u8x8_linux_i2c_t *u8x8_riot_ptr)
@@ -164,7 +257,7 @@ UTFT_UTFT (byte model, u8x8_linux_i2c_t *u8x8_riot_ptr)
   display_bitpixel = bitpixel[model];
   _SPI_16bit= SPI_16bit[model];
   display_model = model;
-
+  u8x8_ri_ptr=u8x8_riot_ptr;
   //__p1 = RS;
   //__p2 = WR;
   //__p3 = CS;
@@ -421,7 +514,7 @@ UTFT_InitLCD (byte orientation)
   if (display_transfer_mode != 1)
     UTFT__set_direction_registers (display_transfer_mode);
 
-  UTFT__hw_special_init ();
+  UTFT__hw_special_init (u8x8_ri_ptr);
 
   sbi (P_RST, B_RST);
   delay (5);

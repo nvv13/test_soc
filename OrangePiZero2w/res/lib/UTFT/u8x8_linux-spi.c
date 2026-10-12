@@ -247,10 +247,6 @@ UTFT__convert_float (char *buf, double num, int width, byte prec)
   sprintf (buf, format, num);
 }
 void
-UTFT__hw_special_init (void)
-{
-}
-void
 UTFT_LCD_Writ_Bus_SPI (const u8 *buf, u32 len)
 {
 //  if (_spi_freq != 0)
