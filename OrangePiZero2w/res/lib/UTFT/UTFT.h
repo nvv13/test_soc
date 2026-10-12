@@ -265,10 +265,10 @@ typedef uint32_t dword;
 
 #define LOG(...) printf (__VA_ARGS__)
 
-// typedef unsigned char byte;
-//  typedef u16 word;
 
-#define bitmapdatatype unsigned short *
+//#define bitmapdatatype unsigned short *
+typedef uint16_t  bitmapword;
+typedef bitmapword *bitmapdatatype;
 
   typedef struct
   {
