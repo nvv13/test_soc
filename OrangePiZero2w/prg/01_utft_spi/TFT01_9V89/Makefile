@@ -2,7 +2,7 @@
 CFLAGS = -g -Wall -I../UTFT/.  -ffunction-sections -fdata-sections
 
 LDFLAGS = -L/usr/local/lib -Wl,--gc-sections
-LDLIBS    = -lgpiod
+LDLIBS    = -lgpiod -lm 
 
 SRC = $(shell ls ../UTFT/*.c) main.c 
 
