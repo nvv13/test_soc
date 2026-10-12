@@ -1859,10 +1859,12 @@ UTFT_lcdOff ()
     case PCF8833:
       UTFT_LCD_Write_COM (0x28);
       break;
+#ifndef DISABLE_CPLD
     case CPLD:
       UTFT_LCD_Write_COM_DATA (0x01, 0x0000);
       UTFT_LCD_Write_COM (0x0F);
       break;
+#endif
     }
   sbi_CS();
 }
@@ -1876,10 +1878,12 @@ UTFT_lcdOn ()
     case PCF8833:
       UTFT_LCD_Write_COM (0x29);
       break;
+#ifndef DISABLE_CPLD
     case CPLD:
       UTFT_LCD_Write_COM_DATA (0x01, 0x0010);
       UTFT_LCD_Write_COM (0x0F);
       break;
+#endif
     }
   sbi_CS();
 }
@@ -1922,6 +1926,7 @@ void
 UTFT_setBrightness (byte br)
 {
   cbi_CS();
+#ifndef DISABLE_CPLD
   switch (display_model)
     {
     case CPLD:
@@ -1931,6 +1936,7 @@ UTFT_setBrightness (byte br)
       UTFT_LCD_Write_COM (0x0F);
       break;
     }
+#endif
   sbi_CS();
 }
 
@@ -1938,6 +1944,7 @@ void
 UTFT_setDisplayPage (byte page)
 {
   cbi_CS();
+#ifndef DISABLE_CPLD
   switch (display_model)
     {
     case CPLD:
@@ -1947,6 +1954,7 @@ UTFT_setDisplayPage (byte page)
       UTFT_LCD_Write_COM (0x0F);
       break;
     }
+#endif
   sbi_CS();
 }
 
@@ -1954,6 +1962,7 @@ void
 UTFT_setWritePage (byte page)
 {
   cbi_CS();
+#ifndef DISABLE_CPLD
   switch (display_model)
     {
     case CPLD:
@@ -1963,6 +1972,7 @@ UTFT_setWritePage (byte page)
       UTFT_LCD_Write_COM (0x0F);
       break;
     }
+#endif
   sbi_CS();
 }
 

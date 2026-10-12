@@ -129,7 +129,7 @@ extern "C"
 //#define ILI9341_S4P 26
 //#define R61581 27
 //#define ILI9486 28
-          #define CPLD 29
+//          #define CPLD 29
 #define HX8353C 30
 #define ST7735_ALT 31
 //#define ILI9341_UNO 32
