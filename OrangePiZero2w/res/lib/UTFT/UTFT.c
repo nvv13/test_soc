@@ -363,9 +363,9 @@ static void
 LCD_WR_REG (u16 Value)
 {
           cbi_RS ();
-          u8 buf[2];
-          buf[0]=((u16 >> 8) & 0xFF);
-          buf[1]=(u16 & 0xFF);
+ 	  u8 buf[2];
+          buf[0] = (value >> 8) & 0xFF;   // старший байт
+          buf[1] =  value       & 0xFF;   // младший байт
           UTFT_LCD_Writ_Bus_SPI (buf, 2);
 }
 
