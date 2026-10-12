@@ -13,12 +13,6 @@ $ sudo apt install libgpiod-dev
 [libgpiod doc](https://libgpiod.readthedocs.io/en/latest/index.html)
 
 
-
-дисплей
- OLED 256x64  3'2 дюйма, SPI, контроллер ssd1322
-
-!перепаять перемычки в режим 4SPI! 
-
 включаем spi1
 ~~~
 orangepi-config
@@ -67,8 +61,8 @@ PH07 19 (mosi)  5  SDA  данные
 PH08 21 (miso)
                 15 RES  сброс (reset)
 PI04 38         14 DC   комманда/данные
-PI03 40           - в инит библиотеки указано, можно и сюда припаять вывод 16 CS 
-PH05 24 (cs0)   16 CS   выбор чипа
+PI03 40         16 CS   выбор чипа
+PH05 24 (cs0)   
 PH09 28 (cs1)
 -------         ------
 Or2w            LCD   
@@ -78,81 +72,4 @@ Or2w            LCD
 
 
 
-иногда контакты SPI1 заняты по другое, 
-
-тогда используем вариант с bitbang драйвером!
-
-[подробнее](../../../device/spi-gpio/README.md)
-
-spi-gpio_0cs_v2.dts
-~~~
-
--------         ------
-Or2w            LCD 1322  
--------         ------
-gnd   6         1  VSS (GND)  
-5v    4         2  VCC
-
-PH05 24 (sck)   4  SCLK  синхросигнал
-PH09 26 (mosi)  5  SDA  данные
-PH04 18 (miso)
-                15 RES  сброс (reset)
-PI04 38         14 DC   комманда/данные
-PI03 40         16 CS   выбор чипа
--------         ------
-Or2w            LCD   
--------         ------
-
-
-~~~
-
-
-это альтернативный вариант с bitbang драйвером!
-
-[подробнее](../../../device/spi-gpio/README.md)
-
-spi-gpio_0cs.dts
-~~~
-
--------         ------
-Or2w            LCD 1322  
--------         ------
-gnd   6         1  VSS (GND)  
-5v    4         2  VCC
-
-PI15 31 (sck)   4  SCLK  синхросигнал
-PI00 29 (mosi)  5  SDA  данные
-PI02 35 (miso)
-                15 RES  сброс (reset)
-PI04 38         14 DC   комманда/данные
-PI03 40         16 CS   выбор чипа
--------         ------
-Or2w            LCD   
--------         ------
-
-
-~~~
-
-spi-gpio_1cs.dts
-~~~
-
--------         ------
-Or2w            LCD 1322  
--------         ------
-gnd   6         1  VSS (GND)  
-5v    4         2  VCC
-
-PI15 31 (sck)   4  SCLK  синхросигнал
-PI00 29 (mosi)  5  SDA  данные
-PI02 35 (miso)
-PI16 37 (cs)    16 CS   выбор чипа
-                15 RES  сброс (reset)
-PI04 38         14 DC   комманда/данные
-PI03 40            CS   выбор чипа
--------         ------
-Or2w            LCD   
--------         ------
-
-
-~~~
 
