@@ -44,6 +44,7 @@
 
 #include "memorysaver.h"
 
+#define tls_mem_alloc(n)  malloc(n)
 
 /*
         The functions and variables below should not normally be used.
