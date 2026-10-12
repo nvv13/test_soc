@@ -248,8 +248,6 @@ extern "C"
 #define VGA_PURPLE 0x8010
 #define VGA_TRANSPARENT 0xFFFFFFFF
 
-//#include "wm_hostspi.h"
-//#include "wm_type_def.h"
 #include "u8x8_linux-spi.h"
 
 #include <stdio.h>
@@ -311,8 +309,8 @@ extern "C"
        WM_IO_PB_07 CMD  -> MOSI
 
   */
-  void UTFT_UTFT (byte model, byte RS, byte WR, byte CS, byte RST, byte SER,
-                  u32 spi_freq);
+  void UTFT_UTFT (byte model, u8x8_linux_i2c_t *u8x8_riot_ptr);
+ // byte RS, byte WR, byte CS, byte RST, byte SER,    u32 spi_freq);
 
   void UTFT_InitLCD (byte orientation);
   // InitLCD(byte orientation=LANDSCAPE);

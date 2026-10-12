@@ -116,8 +116,7 @@ static u8 *full_buf_psram = NULL;
 #include "hardware/sky/HW_W801.h"
 
 void
-UTFT_UTFT (byte model, byte RS, byte WR, byte CS, byte RST, byte SER,
-           u32 spi_freq)
+UTFT_UTFT (byte model, u8x8_linux_i2c_t *u8x8_riot_ptr)
 {
 
 //	обозначение:				--		--		CTE32		--		DMTFT24104	--		--		--		CTE32W	    --			LPH9135		--		--		CTE50		--		--		ELEE32_REVA	--			--			ELEE32_REVB	CTE70		CTE32HR		CTE28		CTE22		--		DMTFT28105	MI0283QT9	CTE35IPS	CTE40		CTE50CPLD	DMTFT18101	--		--		--		--		--

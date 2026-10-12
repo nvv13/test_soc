@@ -9,7 +9,6 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <time.h>
-//#include <u8x8.h>
 #include <unistd.h>
 
 #include "u8x8_linux-spi.h"
@@ -17,9 +16,8 @@
 // #define MY_DEBUG // uncomment in for debug flow
 
 uint8_t
-u8x8_byte_linux_spi (u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
+u8x8_byte_linux_spi (u8x8_linux_i2c_t *u8x8_riot_ptr, uint8_t msg, uint8_t arg_int, void *arg_ptr)
 {
-  u8x8_linux_i2c_t *u8x8_riot_ptr = u8x8_GetUserPtr (u8x8);
 
   /* assert that user_ptr is correctly set */
   assert (u8x8_riot_ptr != NULL);
@@ -185,9 +183,8 @@ u8x8_byte_linux_spi (u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
 }
 
 void
-u8x8_linux_spi_release (u8g2_t *u8g2)
+u8x8_linux_spi_release (u8x8_linux_i2c_t *u8x8_riot_ptr)
 {
-  u8x8_linux_i2c_t *u8x8_riot_ptr = u8g2->u8x8.user_ptr;
 
   // 5. Освобождаем ресурсы
   close (u8x8_riot_ptr->file);
@@ -199,7 +196,7 @@ u8x8_linux_spi_release (u8g2_t *u8g2)
 }
 
 uint8_t
-u8x8_linux_spi_delay (u8x8_t *u8x8, uint8_t msg, uint8_t arg_int,
+u8x8_linux_spi_delay (u8x8_linux_i2c_t *u8x8_riot_ptr, uint8_t msg, uint8_t arg_int,
                       void *arg_ptr)
 {
   struct timespec req;
