@@ -128,7 +128,7 @@ uint8_t u8x8_linux_spi_delay (u8x8_linux_i2c_t *u8x8_riot_ptr, uint8_t msg, uint
 void u8x8_linux_spi_release (u8x8_linux_i2c_t *u8x8_riot_ptr);
 
 
-void UTFT_LCD_Writ_Bus (char VH, char VL, byte mode, byte display_serial_mode);
+
 void UTFT__set_direction_registers (byte mode);
 void UTFT__fast_fill_16 (byte VH, byte VL, long pix);
 void UTFT__fast_fill_8 (int ch, long pix);

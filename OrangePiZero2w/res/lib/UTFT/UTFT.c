@@ -198,7 +198,17 @@ static u8 *full_buf_psram = NULL;
 static u8x8_linux_i2c_t *u8x8_ri_ptr;
 
 
-//static void UTFT_LCD_Writ_Bus (char VH, char VL, byte mode, byte display_serial_mode);
+static void UTFT_LCD_Writ_Bus (char VH, char VL, byte mode, byte display_serial_mode)
+{
+/* SERIAL_5PIN, значит есть отдельный пин, который говорит, данные
+             это или комманда */
+if (VH == 1)
+	u8x8_byte_linux_spi (u8x8_ri_ptr, U8X8_MSG_BYTE_SET_DC, 1, NULL);
+ else
+	u8x8_byte_linux_spi (u8x8_ri_ptr, U8X8_MSG_BYTE_SET_DC, 0, NULL);
+
+u8x8_byte_linux_spi (u8x8_ri_ptr, U8X8_MSG_BYTE_SEND, 1, &VL);
+}
 static void UTFT_LCD_Writ_Bus_SPI (const u8 *buf, u32 len)
 {
 u8x8_byte_linux_spi (u8x8_ri_ptr, U8X8_MSG_BYTE_SEND, len, buf);
@@ -274,7 +284,7 @@ UTFT_UTFT (byte model, u8x8_linux_i2c_t *u8x8_riot_ptr)
   __p3 = CS;
   __p4 = RST;
   __p5 = SER;
-  _spi_freq = spi_freq;
+  _spi_freq = u8x8_ri_ptr->speed;
   _spi_mode = spi_md[model];
 
   if (display_transfer_mode == SERIAL_4PIN)
