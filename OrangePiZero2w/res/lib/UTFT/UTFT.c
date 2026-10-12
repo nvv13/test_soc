@@ -45,6 +45,7 @@
 #include "memorysaver.h"
 
 #define tls_mem_alloc(n)  malloc(n)
+#define pgm_read_byte(addr)  (*(const unsigned char *)(addr))
 #define pgm_read_word(addr) (*(const u16 *)(addr))
 
 /*
