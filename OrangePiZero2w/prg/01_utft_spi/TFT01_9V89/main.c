@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <u8g2.h>
 
 #include "UTFT.h"
 #include "u8x8_linux-spi.h"
