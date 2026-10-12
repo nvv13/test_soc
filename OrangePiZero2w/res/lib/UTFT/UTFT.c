@@ -514,7 +514,7 @@ UTFT_InitLCD (byte orientation)
   if (display_transfer_mode != 1)
     UTFT__set_direction_registers (display_transfer_mode);
 
-  UTFT__hw_special_init (u8x8_ri_ptr);
+  UTFT__hw_special_init ();
 
   sbi (P_RST, B_RST);
   delay (5);
