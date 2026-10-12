@@ -159,9 +159,8 @@ u8x8_byte_linux_spi (u8x8_linux_i2c_t *u8x8_riot_ptr, uint8_t msg, uint8_t arg_i
       fprintf (stderr, "++ start transfer, resetting buffers\n");
 #endif
       gpiod_line_set_value (u8x8_riot_ptr->xCS0_line, 0);
-      u8x8->gpio_and_delay_cb (u8x8, U8X8_MSG_DELAY_NANO,
-                               u8x8->display_info->post_chip_enable_wait_ns,
-                               NULL);
+      u8x8_linux_spi_delay (u8x8_riot_ptr, U8X8_MSG_DELAY_NANO, 5, NULL);
+
 
       break;
 
@@ -170,9 +169,7 @@ u8x8_byte_linux_spi (u8x8_linux_i2c_t *u8x8_riot_ptr, uint8_t msg, uint8_t arg_i
       fprintf (stderr, "++ end transfer, sending cmd %0x %0x count %d\n",
                u8x8_riot_ptr->tx[0], u8x8_riot_ptr->tx[1], u8x8_riot_ptr->idx);
 #endif
-      u8x8->gpio_and_delay_cb (u8x8, U8X8_MSG_DELAY_NANO,
-                               u8x8->display_info->pre_chip_disable_wait_ns,
-                               NULL);
+      u8x8_linux_spi_delay (u8x8_riot_ptr, U8X8_MSG_DELAY_NANO, 5, NULL);
       gpiod_line_set_value (u8x8_riot_ptr->xCS0_line, 1);
       break;
     default:
