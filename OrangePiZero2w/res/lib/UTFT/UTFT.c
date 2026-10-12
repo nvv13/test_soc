@@ -114,14 +114,6 @@ digitalWrite (byte PIN, int LEVEL)
 
 static u8 sost_RS = 255;
 
-static void
-sbi_RS (void)
-{
-}
-static void
-cbi_RS (void)
-{
-}
 
 //static u8 sost_SDA = 255;
 
@@ -198,14 +190,24 @@ static u8 *full_buf_psram = NULL;
 static u8x8_linux_i2c_t *u8x8_ri_ptr;
 
 
+static void
+sbi_RS (void)
+{
+	u8x8_byte_linux_spi (u8x8_ri_ptr, U8X8_MSG_BYTE_SET_DC, 1, NULL);
+}
+static void
+cbi_RS (void)
+{
+	u8x8_byte_linux_spi (u8x8_ri_ptr, U8X8_MSG_BYTE_SET_DC, 0, NULL);
+}
 static void UTFT_LCD_Writ_Bus (char VH, char VL, byte mode, byte display_serial_mode)
 {
 /* SERIAL_5PIN, значит есть отдельный пин, который говорит, данные
              это или комманда */
 if (VH == 1)
-	u8x8_byte_linux_spi (u8x8_ri_ptr, U8X8_MSG_BYTE_SET_DC, 1, NULL);
+	sbi_RS();
  else
-	u8x8_byte_linux_spi (u8x8_ri_ptr, U8X8_MSG_BYTE_SET_DC, 0, NULL);
+	cbi_RS();
 
 u8x8_byte_linux_spi (u8x8_ri_ptr, U8X8_MSG_BYTE_SEND, 1, &VL);
 }
