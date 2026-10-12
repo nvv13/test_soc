@@ -3,6 +3,11 @@
 #include "UTFT.h"
 #include "u8x8_linux-spi.h"
 
+extern uint8_t SmallFont[]; // подключаем маленький шрифт
+extern uint8_t BigFont[];   // подключаем большой шрифт
+extern uint8_t
+    SevenSegNumFont[]; // подключаем шрифт имитирующий семисегментный индикатор
+extern uint8_t SmallSymbolFont[];
 
 int
 main (void)
