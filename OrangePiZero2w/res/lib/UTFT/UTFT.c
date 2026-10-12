@@ -57,8 +57,8 @@ static byte fch, fcl, bch, bcl;
 static byte orient;
 static long disp_x_size, disp_y_size;
 static byte display_model, display_transfer_mode, display_serial_mode;
-static regtype *P_RS, *P_WR, *P_CS, *P_RST, *P_SDA, *P_SCL, *P_ALE;
-static regsize B_RS, B_WR, B_CS, B_RST, B_SDA, B_SCL, B_ALE;
+//static regtype *P_RS, *P_WR, *P_CS, *P_RST, *P_SDA, *P_SCL, *P_ALE;
+//static regsize B_RS, B_WR, B_CS, B_RST, B_SDA, B_SCL, B_ALE;
 static byte __p1, __p2, __p3, __p4, __p5;
 static _current_font cfont;
 static boolean _transparent;
@@ -131,12 +131,12 @@ UTFT_UTFT (byte model, u8x8_linux_i2c_t *u8x8_riot_ptr)
   _SPI_16bit= SPI_16bit[model];
   display_model = model;
 
-  __p1 = RS;
-  __p2 = WR;
-  __p3 = CS;
-  __p4 = RST;
-  __p5 = SER;
-  _spi_freq = spi_freq;
+  //__p1 = RS;
+  //__p2 = WR;
+  //__p3 = CS;
+  //__p4 = RST;
+  //__p5 = SER;
+  //_spi_freq = spi_freq;
   _spi_mode = spi_md[model];
 
   if (display_transfer_mode == SERIAL_4PIN)
