@@ -235,3 +235,91 @@ u8x8_linux_spi_delay (u8x8_linux_i2c_t *u8x8_riot_ptr, uint8_t msg, uint8_t arg_
 
   return 1;
 }
+
+
+void
+UTFT__convert_float (char *buf, double num, int width, byte prec)
+{
+  char format[10];
+
+  sprintf (format, "%%%i.%if", width, prec);
+  sprintf (buf, format, num);
+}
+void
+UTFT__hw_special_init (void)
+{
+}
+void
+UTFT_LCD_Writ_Bus_SPI (const u8 *buf, u32 len)
+{
+//  if (_spi_freq != 0)
+//    n_spi_write (buf, len);
+}
+
+void
+UTFT_LCD_Writ_Bus (char VH, char VL, byte mode)
+{
+  switch (mode)
+    {
+    case 1:
+      /* в этом режиме VH==1 значит данные, 0 - комманда, передаем */
+      if (display_serial_mode == SERIAL_4PIN)
+        { /* SERIAL_4PIN значит 1 передаваемый бит - означает комманда/данные
+           */
+          //if (VH == 1)
+          //  sbi_SDA ();
+          //else
+          //  cbi_SDA ();
+          //pulse_low_SCL ();
+        }
+      else
+        { /* SERIAL_5PIN, значит есть отдельный пин, который говорит, данные
+             это или комманда */
+          //if (VH == 1)
+          //  sbi (P_RS, B_RS);
+          //else
+          //  cbi (P_RS, B_RS);
+        }
+
+      //if (display_serial_mode == SERIAL_5PIN && _spi_freq != 0)
+      //  n_spi_write ((u8 *)&VL, 1);
+      //else
+      //  {
+      //  }
+
+      break;
+    case 8:
+      /* в этом режиме VH и VL - данные */
+      break;
+    case 16:
+      {
+        /* в этом режиме VH и VL - данные, 16 разрядов порта B, биты 0-15  */
+        //!ВНИМАНИЕ! PIN0 - PIN15, использовать только PB порт GPIO !ВНИМАНИЕ!
+      }
+      break;
+    }
+}
+
+void
+UTFT__set_direction_registers (byte mode)
+{
+}
+void
+UTFT__fast_fill_16 (byte VH, byte VL, long pix)
+{
+//  if (pix > 0)
+//    UTFT_LCD_Writ_Bus (VH, VL, 16);
+//
+//  if (pix > 1)
+//    pulse_low_WR_repeat (pix - 1);
+}
+
+void
+UTFT__fast_fill_8 (int ch, long pix)
+{
+//  if (pix > 0)
+//    UTFT_LCD_Writ_Bus (ch, ch, 8);
+//
+//  if (pix > 1)
+//    pulse_low_WR_repeat ((pix - 1) * 2);
+}

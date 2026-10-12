@@ -118,4 +118,15 @@ uint8_t u8x8_linux_spi_delay (u8x8_linux_i2c_t *u8x8_riot_ptr, uint8_t msg, uint
 
 void u8x8_linux_spi_release (u8x8_linux_i2c_t *u8x8_riot_ptr);
 
+
+void UTFT__convert_float (char *buf, double num, int width, byte prec);
+void UTFT__hw_special_init (void);
+void UTFT_LCD_Writ_Bus_SPI (const u8 *buf, u32 len);
+void UTFT_LCD_Writ_Bus (char VH, char VL, byte mode);
+void UTFT__set_direction_registers (byte mode);
+void UTFT__fast_fill_16 (byte VH, byte VL, long pix);
+void UTFT__fast_fill_8 (int ch, long pix);
+
+
 #endif // LINUXspi
+
