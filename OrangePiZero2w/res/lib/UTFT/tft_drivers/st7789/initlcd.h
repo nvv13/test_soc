@@ -42,9 +42,11 @@ case TFT02_8V89:
    UTFT_LCD_Write_DATA2(240>>8);
    UTFT_LCD_Write_DATA2(240&0xFF);  //     YEND = 240
 */
-
-    UTFT_LCD_Write_COM(ST77XX_INVON);//  7: hack
-    delay(10);
+    if(display_model!=TFT02_8V89) 
+     {
+     UTFT_LCD_Write_COM(ST77XX_INVON);//  7: hack
+     delay(10);
+     }
     UTFT_LCD_Write_COM(ST77XX_NORON);//  8: Normal display on, no args, w/delay
     delay(10);//     10 ms delay
     UTFT_LCD_Write_COM(ST77XX_DISPON);//  9: Main screen turn on, no args, delay
