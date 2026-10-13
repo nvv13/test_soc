@@ -2,8 +2,9 @@ case TFT01_3SP:
 case TFT01_47V89:
 case TFT01_14V89:
 case TFT01_69V89:
-case TFT02_0V89:
+//case TFT02_0V89:
 case TFT01_9V89:
+case TFT02_8V89:
    //LOG("TFT01_3SP init 9 commands in list\n"); 
          // Init commands for 7789 screens
          //  9 commands in list:

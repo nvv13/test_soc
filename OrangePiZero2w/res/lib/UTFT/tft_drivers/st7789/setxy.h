@@ -1,3 +1,4 @@
+case TFT02_8V89:
 case TFT01_3SP:
  // LOG("TFT01_3SP set CASET RASET\n"); 
  // Смещение матрицы относительно строк/столбцов контроллера
@@ -80,7 +81,6 @@ case TFT01_69V89:
 
 /*
 case TFT02_0V89:
-case TFT02_8V89:
 #define TFT02_0V89_COL_SHIFT_PIXEL 0
 #define TFT02_0V89_ROW_SHIFT_PIXEL 0
 #define ST77XX_CASET 0x2A
@@ -103,7 +103,6 @@ case TFT02_8V89:
 
 
 case TFT01_9V89:
-case TFT02_8V89:
 
 #define TFT01_9V89_COL_SHIFT_PIXEL 35
 #define TFT01_9V89_ROW_SHIFT_PIXEL 0 //160
