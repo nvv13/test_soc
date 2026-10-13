@@ -188,7 +188,8 @@ int UTFT_scan_files_jpg(char *path)
                 UTFT_setFont(SmallFont);
                 UTFT_setColor2(VGA_BLUE);
                 UTFT_setBackColor2(VGA_TRANSPARENT);
-                UTFT_print(entry->d_name, CENTER, 150, 0);
+
+                UTFT_print(entry->d_name, CENTER, UTFT_getDisplayYSize () - 10 , 0);
 
 	      sleep (3);
             }
