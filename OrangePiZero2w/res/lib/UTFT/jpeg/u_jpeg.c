@@ -126,3 +126,72 @@ return lcd_draw_jpeg(path,  xpos,  ypos);
 }
 
 
+#include <stdlib.h>
+#include <string.h>
+#include <dirent.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+
+
+int UTFT_scan_files_jpg(char *path)
+{
+    DIR *dir;
+    struct dirent *entry;
+    struct stat st;
+
+    dir = opendir(path);
+    if (dir == NULL) {
+        perror(path);
+        return -1;
+    }
+
+    while ((entry = readdir(dir)) != NULL) {
+        // пропускаем "." и ".."
+        if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
+            continue;
+
+        // полный путь: path + "/" + d_name
+        char full[512];
+        int n = snprintf(full, sizeof(full), "%s/%s", path, entry->d_name);
+        if (n < 0 || (size_t)n >= sizeof(full)) {
+            fprintf(stderr, "path too long: %s/%s\n", path, entry->d_name);
+            continue;
+        }
+
+        if (stat(full, &st) != 0) {
+            perror(full);
+            continue;
+        }
+
+        if (S_ISDIR(st.st_mode)) {
+            // рекурсивный обход подкаталога
+            scan_files(full);
+        } else if (S_ISREG(st.st_mode)) {
+            printf("%s\n", full);
+
+            // формируем "0:%s" для совместимости с FatFS-стилем путей,
+            // если UTFT_ADD_lcd_draw_jpeg ожидает именно такой префикс
+            char FileName[512];
+            snprintf(FileName, sizeof(FileName), "%s", full);
+
+            if (strstr (FileName, ".jpg") != NULL ||
+                strstr (FileName, ".JPG") != NULL ||
+                strstr (FileName, ".jpeg") != NULL ||
+                strstr (FileName, ".JPEG") != NULL) {
+
+                UTFT_ADD_lcd_draw_jpeg(FileName, 0, 0);
+                // UTFT_loadBitmap(0, 0, 280, 240, FileName);
+
+                UTFT_setFont(SmallFont);
+                UTFT_setColor2(VGA_BLUE);
+                UTFT_setBackColor2(VGA_TRANSPARENT);
+                UTFT_print(entry->d_name, CENTER, 150, 0);
+
+	      sleep (3);
+            }
+        }
+    }
+
+    closedir(dir);
+    return 0;
+}

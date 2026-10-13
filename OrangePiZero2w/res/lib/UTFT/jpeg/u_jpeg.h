@@ -29,6 +29,7 @@ extern "C" {
  */
 int UTFT_ADD_lcd_draw_jpeg (const char* path, int xpos, int ypos);
 
+int UTFT_scan_files_jpg (char *path);
 
 #ifdef __cplusplus
 }
