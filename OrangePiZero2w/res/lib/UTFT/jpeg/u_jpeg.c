@@ -131,6 +131,9 @@ return lcd_draw_jpeg(path,  xpos,  ypos);
 #include <dirent.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include "UTFT.h"
+
+extern uint8_t SmallFont[]; // подключаем маленький шрифт
 
 
 int UTFT_scan_files_jpg(char *path)
@@ -165,7 +168,7 @@ int UTFT_scan_files_jpg(char *path)
 
         if (S_ISDIR(st.st_mode)) {
             // рекурсивный обход подкаталога
-            scan_files(full);
+            UTFT_scan_files_jpg(full);
         } else if (S_ISREG(st.st_mode)) {
             printf("%s\n", full);
 
