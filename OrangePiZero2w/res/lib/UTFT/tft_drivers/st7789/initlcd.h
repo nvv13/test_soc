@@ -62,6 +62,7 @@ case TFT01_9V89:
    case TFT01_14V89: 
    case TFT01_69V89:
    case TFT02_0V89:
+   case TFT02_8V89:
    case TFT01_9V89:
     UTFT_LCD_Write_DATA2(ST77XX_MADCTL_MX | ST77XX_MADCTL_MY | ST7789_MADCTL_RGB);break; // rotation(0)  case TFT01_47V89
    default:
