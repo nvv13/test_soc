@@ -77,7 +77,7 @@ Or2w            LCD
 
 Дисплей
 фото 1 
-![photo](../UTFT/jpg/MSP2834_back.jpg)
+![photo](../../../res/lib/UTFT/jpg/MSP2834_back.jpg)
 фото 2
-![photo](../UTFT/jpg/MSP2834.jpg)
+![photo](../../../res/lib/UTFT/jpg/MSP2834.jpg)
 
