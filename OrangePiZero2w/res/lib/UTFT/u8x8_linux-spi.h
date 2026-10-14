@@ -78,7 +78,8 @@ typedef uint32_t dword;
 
 //#define U8X8_MSG_BYTE_SET_I2C_ADR U8X8_MSG_CAD_SET_I2C_ADR
 //#define U8X8_MSG_BYTE_SET_DEVICE U8X8_MSG_CAD_SET_DEVICE
-
+#define U8X8_MSG_BYTE_RESET_LOW 100
+#define U8X8_MSG_BYTE_RESET_UP  101
 
 
 
@@ -111,11 +112,11 @@ typedef struct
   struct gpiod_chip *xDC_chip;
   struct gpiod_line *xDC_line;
 
-  char cCS0_piochip[20]; /* gpiochip0 */
-  int iCS0_piochip; /* gpiochip0 */
-  int iCS0_line;         /* 260 for PI4 */
-  struct gpiod_chip *xCS0_chip;
-  struct gpiod_line *xCS0_line;
+  char cRESET_piochip[20]; /* gpiochip0 */
+  int iRESET_piochip; /* gpiochip0 */
+  int iRESET_line;         /* 260 for PI4 */
+  struct gpiod_chip *xRESET_chip;
+  struct gpiod_line *xRESET_line;
 
 } u8x8_linux_i2c_t;
 

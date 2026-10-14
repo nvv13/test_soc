@@ -26,8 +26,8 @@ main (void)
     .iDC_piochip = 0, // gpiochip0
     .iDC_line = 260,  // PI4
 
-    .iCS0_piochip = 0, // gpiochip0
-    .iCS0_line = 259,  // PI3
+    .iRESET_piochip = 0, // gpiochip0
+    .iRESET_line = 259,  // PI3
   };
 
 

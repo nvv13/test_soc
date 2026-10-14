@@ -113,36 +113,36 @@ u8x8_byte_linux_spi (u8x8_linux_i2c_t *u8x8_riot_ptr, uint8_t msg, uint32_t arg_
         }
 
       // 1. Открываем GPIO-чип
-      snprintf (u8x8_riot_ptr->cCS0_piochip, 19, "gpiochip%d",
-                u8x8_riot_ptr->iCS0_piochip);
-      if (u8x8_riot_ptr->iDC_piochip == u8x8_riot_ptr->iCS0_piochip)
-        u8x8_riot_ptr->xCS0_chip = u8x8_riot_ptr->xDC_chip;
+      snprintf (u8x8_riot_ptr->cRESET_piochip, 19, "gpiochip%d",
+                u8x8_riot_ptr->iRESET_piochip);
+      if (u8x8_riot_ptr->iDC_piochip == u8x8_riot_ptr->iRESET_piochip)
+        u8x8_riot_ptr->xRESET_chip = u8x8_riot_ptr->xDC_chip;
       else
         {
-          u8x8_riot_ptr->xCS0_chip
-              = gpiod_chip_open_by_name (u8x8_riot_ptr->cCS0_piochip);
-          if (!u8x8_riot_ptr->xCS0_chip)
+          u8x8_riot_ptr->xRESET_chip
+              = gpiod_chip_open_by_name (u8x8_riot_ptr->cRESET_piochip);
+          if (!u8x8_riot_ptr->xRESET_chip)
             {
-              perror ("Ошибка открытия GPIO-чипа CS0");
+              perror ("Ошибка открытия GPIO-чипа RESET");
               return (errno);
             }
         }
       // 2. Получаем доступ к линии GPIO
-      u8x8_riot_ptr->xCS0_line = gpiod_chip_get_line (
-          u8x8_riot_ptr->xCS0_chip, u8x8_riot_ptr->iCS0_line);
-      if (!u8x8_riot_ptr->xCS0_line)
+      u8x8_riot_ptr->xRESET_line = gpiod_chip_get_line (
+          u8x8_riot_ptr->xRESET_chip, u8x8_riot_ptr->iRESET_line);
+      if (!u8x8_riot_ptr->xRESET_line)
         {
-          perror ("Ошибка получения GPIO-линии CS0");
-          gpiod_chip_close (u8x8_riot_ptr->xCS0_chip);
+          perror ("Ошибка получения GPIO-линии RESET");
+          gpiod_chip_close (u8x8_riot_ptr->xRESET_chip);
           return (errno);
         }
       // 3. Настраиваем линию на вывод (OUTPUT)
-      ret = gpiod_line_request_output (u8x8_riot_ptr->xCS0_line, "CS0_line",
+      ret = gpiod_line_request_output (u8x8_riot_ptr->xRESET_line, "RESET_line",
                                        0);
       if (ret < 0)
         {
-          perror ("Ошибка настройки GPIO на выход CS0");
-          gpiod_chip_close (u8x8_riot_ptr->xCS0_chip);
+          perror ("Ошибка настройки GPIO на выход RESET");
+          gpiod_chip_close (u8x8_riot_ptr->xRESET_chip);
           return (errno);
         }
       break;
@@ -155,14 +155,24 @@ u8x8_byte_linux_spi (u8x8_linux_i2c_t *u8x8_riot_ptr, uint8_t msg, uint32_t arg_
       gpiod_line_set_value (u8x8_riot_ptr->xDC_line, arg_int);
       break;
 
+    case U8X8_MSG_BYTE_RESET_LOW:
+#ifdef MY_DEBUG
+      fprintf (stderr, "line reset LOW\n");
+#endif
+      gpiod_line_set_value (u8x8_riot_ptr->xRESET_line, 0);
+      break;
+    case U8X8_MSG_BYTE_RESET_UP:
+#ifdef MY_DEBUG
+      fprintf (stderr, "line reset UP\n");
+#endif
+      gpiod_line_set_value (u8x8_riot_ptr->xRESET_line, 1);
+      break;
+
     case U8X8_MSG_BYTE_START_TRANSFER:
 #ifdef MY_DEBUG
       fprintf (stderr, "++ start transfer, resetting buffers\n");
 #endif
-      gpiod_line_set_value (u8x8_riot_ptr->xCS0_line, 0);
-      u8x8_linux_spi_delay (u8x8_riot_ptr, U8X8_MSG_DELAY_NANO, 5, NULL);
-
-
+      //u8x8_linux_spi_delay (u8x8_riot_ptr, U8X8_MSG_DELAY_NANO, 5, NULL);
       break;
 
     case U8X8_MSG_BYTE_END_TRANSFER:
@@ -170,9 +180,9 @@ u8x8_byte_linux_spi (u8x8_linux_i2c_t *u8x8_riot_ptr, uint8_t msg, uint32_t arg_
       fprintf (stderr, "++ end transfer, sending cmd %0x %0x count %d\n",
                u8x8_riot_ptr->tx[0], u8x8_riot_ptr->tx[1], u8x8_riot_ptr->idx);
 #endif
-      u8x8_linux_spi_delay (u8x8_riot_ptr, U8X8_MSG_DELAY_NANO, 5, NULL);
-      gpiod_line_set_value (u8x8_riot_ptr->xCS0_line, 1);
+      //u8x8_linux_spi_delay (u8x8_riot_ptr, U8X8_MSG_DELAY_NANO, 5, NULL);
       break;
+
     default:
       fprintf (stderr, "unknown msg type %d\n", msg);
       return 0;
@@ -187,9 +197,9 @@ u8x8_linux_spi_release (u8x8_linux_i2c_t *u8x8_riot_ptr)
   // 5. Освобождаем ресурсы
   close (u8x8_riot_ptr->file);
   gpiod_line_release (u8x8_riot_ptr->xDC_line);
-  gpiod_line_release (u8x8_riot_ptr->xCS0_line);
-  if (u8x8_riot_ptr->iDC_piochip != u8x8_riot_ptr->iCS0_piochip)
-    gpiod_chip_close (u8x8_riot_ptr->xCS0_chip);
+  gpiod_line_release (u8x8_riot_ptr->xRESET_line);
+  if (u8x8_riot_ptr->iDC_piochip != u8x8_riot_ptr->iRESET_piochip)
+    gpiod_chip_close (u8x8_riot_ptr->xRESET_chip);
   gpiod_chip_close (u8x8_riot_ptr->xDC_chip);
 }
 

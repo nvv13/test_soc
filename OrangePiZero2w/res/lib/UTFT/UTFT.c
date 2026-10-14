@@ -124,10 +124,12 @@ static u8x8_linux_i2c_t *u8x8_ri_ptr;
 static void
 sbi_RST (void)
 {
+	u8x8_byte_linux_spi (u8x8_ri_ptr, U8X8_MSG_BYTE_RESET_UP, 0, NULL);
 }
 static void
 cbi_RST (void)
 {
+	u8x8_byte_linux_spi (u8x8_ri_ptr, U8X8_MSG_BYTE_RESET_LOW, 0, NULL);
 }
 
 
