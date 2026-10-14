@@ -59,9 +59,8 @@ gnd   6         1  GND
 PH06 23 (clk)   3  SCL  синхросигнал
 PH07 19 (mosi)  4  SDA  данные
 PH08 21 (miso)
-                5  RES  сброс (reset)
+PI03 40         5  RES  сброс (reset)
 PI04 38         6  DC   комманда/данные
-PI03 40         
 PH05 24 (cs0)   7  CS   выбор чипа
 PH09 28 (cs1)
 3v3  17         8  BLK (подсветка)
