@@ -73,3 +73,9 @@ Or2w            LCD
 
 
 
+Дисплей
+фото 1 
+![photo](../../../res/lib/UTFT/jpg/TFT02_0V89_back.jpg)
+фото 2
+![photo](../../../res/lib/UTFT/jpg/TFT02_0V89.jpg)
+

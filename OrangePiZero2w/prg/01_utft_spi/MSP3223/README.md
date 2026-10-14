@@ -74,9 +74,9 @@ Or2w            LCD
 
 Дисплей
 фото 1 
-![photo](../UTFT/jpg/MSP3223_back.jpg)
+![photo](../../../res/lib/UTFT/jpg/MSP3223_back.jpg)
 фото 2
-![photo](../UTFT/jpg/MSP3223.jpg)
+![photo](../../../res/lib/UTFT/jpg/MSP3223.jpg)
 
 
 

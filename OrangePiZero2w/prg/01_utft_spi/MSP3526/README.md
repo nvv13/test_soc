@@ -77,7 +77,7 @@ Or2w            LCD
 
 Дисплей
 фото 1 
-![photo](../UTFT/jpg/MSP3526_back.jpg)
+![photo](../../../res/lib/UTFT/jpg/MSP3526_back.jpg)
 фото 2
-![photo](../UTFT/jpg/MSP3526.jpg)
+![photo](../../../res/lib/UTFT/jpg/MSP3526.jpg)
 

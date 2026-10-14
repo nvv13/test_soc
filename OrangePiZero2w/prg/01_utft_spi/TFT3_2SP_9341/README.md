@@ -73,3 +73,8 @@ Or2w            LCD
 
 
 
+Дисплей
+фото 1 
+![photo](../../../res/lib/UTFT/jpg/3.2tft_spi_back.jpg)
+фото 2
+![photo](../../../res/lib/UTFT/jpg/3.2tft_spi.jpg)

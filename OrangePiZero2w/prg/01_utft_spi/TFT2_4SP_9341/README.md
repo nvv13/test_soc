@@ -73,3 +73,8 @@ Or2w            LCD
 
 
 
+Дисплей
+фото 1 
+![photo](../../../res/lib/UTFT/jpg/TFT2_4SP_9341_back.jpg)
+фото 2
+![photo](../../../res/lib/UTFT/jpg/TFT2_4SP_9341.jpg)
