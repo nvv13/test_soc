@@ -49,6 +49,7 @@ case TFT00_96SP_2:
 if(display_model==TFT00_96SP_2)
 {
 	UTFT_LCD_Write_DATA2(0xC8); 
+        UTFT_LCD_Write_COM(0x21);// 13: invert display, no args
 }
 else
 {
