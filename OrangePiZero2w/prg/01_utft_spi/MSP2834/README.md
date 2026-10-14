@@ -73,3 +73,11 @@ Or2w            LCD
 
 
 
+2.8 TFT 240x320 MSP2834
+
+Дисплей
+фото 1 
+![photo](../UTFT/jpg/MSP2834_back.jpg)
+фото 2
+![photo](../UTFT/jpg/MSP2834.jpg)
+
