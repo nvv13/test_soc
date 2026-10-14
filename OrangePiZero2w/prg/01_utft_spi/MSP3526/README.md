@@ -53,17 +53,17 @@ pin 233 (PH9): device 5011000.spi function spi1 group PH9
 -------         ------
 Or2w            LCD 
 -------         ------
-gnd   6         1  GND
-5v    4         2  VCC
+5v    4         1  VCC
+gnd   6         2  GND
 
-PH06 23 (clk)   3  SCL  синхросигнал
-PH07 19 (mosi)  4  SDA  данные
+PH05 24 (cs0)   3  CS   выбор чипа
+PI03 40         4  RST  сброс (reset)
+PI04 38         5  DC(RS)  комманда/данные
+PH07 19 (mosi)  7  SDI  данные
+PH06 23 (clk)   8  SCK  синхросигнал
 PH08 21 (miso)
-PI03 40         5  RES  сброс (reset)
-PI04 38         6  DC   комманда/данные
-PH05 24 (cs0)   7  CS   выбор чипа
 PH09 28 (cs1)
-3v3  17         8  BLK (подсветка)
+3v3  17         9  LED (подсветка)
 -------         ------
 Or2w            LCD   
 -------         ------
