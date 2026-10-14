@@ -1,5 +1,3 @@
-// не заработала, нужно подбирать частоты, очень "бюджетный" дисплей
-
 #include <stdio.h>
 
 #include "UTFT.h"
@@ -35,7 +33,7 @@ main (void)
 
   // подключаем библиотеку UTFT
 
-  UTFT_UTFT (TFT00_96SP_2, &user_data );
+  UTFT_UTFT (TFT00_96SP, &user_data );
 
   UTFT_InitLCD (LANDSCAPE); // инициируем дисплей
 
