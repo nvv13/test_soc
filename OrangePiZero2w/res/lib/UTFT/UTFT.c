@@ -263,6 +263,7 @@ UTFT_UTFT (byte model, u8x8_linux_i2c_t *u8x8_riot_ptr)
 	}
     }
 
+  UTFT_store_to_psram(true);
 }
 
 static void
