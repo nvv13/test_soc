@@ -184,6 +184,7 @@ int UTFT_scan_files_jpg(char *path)
 
                 UTFT_ADD_lcd_draw_jpeg(FileName, 0, 0);
                 // UTFT_loadBitmap(0, 0, 280, 240, FileName);
+                UTFT_psram_to_drawBitmap();
 
                 UTFT_setFont(SmallFont);
                 UTFT_setColor2(VGA_BLUE);
