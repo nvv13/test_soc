@@ -1985,9 +1985,7 @@ UTFT_store_to_psram(bool b_Set_store_to_psram)
       if(full_buf_psram == NULL)
         {
           full_buf_psram = malloc (i_size);
-          if(full_buf_psram!=NULL)
-            LOG (" UTFT_store_to_psram dram malloc %d Ok\n", i_size);
-          else
+          if(full_buf_psram==NULL)
             LOG (" UTFT_store_to_psram dram malloc %d Error\n", i_size);
         }
       store_to_psram=(full_buf_psram!=NULL);
