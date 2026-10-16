@@ -117,7 +117,8 @@ static u8 *buf_4x_line = NULL;
 static bool store_to_psram=false;
 static u8 *full_buf_psram = NULL;
 static u8x8_linux_i2c_t *u8x8_ri_ptr;
-
+static u32 i_count_pixel = 0;
+static u32 i_buf_len = 0;
 
 
 
@@ -249,13 +250,17 @@ UTFT_UTFT (byte model, u8x8_linux_i2c_t *u8x8_riot_ptr)
 
   if (buf_4x_line == NULL) // display_serial_mode == SERIAL_5PIN && _spi_freq!=0)
     {
-      int size=(disp_x_size + 1);
-      if(disp_y_size>disp_x_size)
-        size=(disp_y_size + 1);
+      i_count_pixel = ((disp_x_size + 1) * (disp_y_size + 1));
       if(display_bitpixel == 24)
-        buf_4x_line = tls_mem_alloc (size * 3);
-      else
-        buf_4x_line = tls_mem_alloc (size * 4);
+        {
+	i_buf_len = i_count_pixel * 3;
+        buf_4x_line = tls_mem_alloc (i_buf_len);
+        }
+      else 
+	{ /* default -> display_bitpixel = 16 */
+	i_buf_len = i_count_pixel * 2;
+        buf_4x_line = tls_mem_alloc (i_buf_len);
+	}
     }
 
 }
@@ -866,32 +871,22 @@ UTFT_fillScr2 (word color)
               buf[2] = ((color & 0x001F)
                         << 3); // 0000 0000 0001 1111 -> 1111 1000  BBBBBBBB
             }
-          for (i = 0; i < ((disp_x_size + 1)); i++)
+          for (i = 0; i < i_count_pixel; i++)
             {
               buf_4x_line[i * 3    ] = buf[0];
               buf_4x_line[i * 3 + 1] = buf[1];
               buf_4x_line[i * 3 + 2] = buf[2];
             }
-          for (i = 0; i < ((disp_y_size + 1)); i++)
-            {
-              UTFT_LCD_Writ_Bus_SPI (buf_4x_line, ((disp_x_size + 1) * 3));
-            }
-          if ((disp_y_size + 1) % 3)
-            UTFT_LCD_Writ_Bus_SPI (buf_4x_line, ((disp_x_size + 1) * 3));
+          UTFT_LCD_Writ_Bus_SPI (buf_4x_line, i_buf_len);
           }
          else
           {
-          for (i = 0; i < ((disp_x_size + 1) * 2); i++)
+          for (i = 0; i < i_count_pixel; i++)
             {
               buf_4x_line[i * 2] = ch;
               buf_4x_line[i * 2 + 1] = cl;
             }
-          for (i = 0; i < ((disp_y_size + 1) / 2); i++)
-            {
-              UTFT_LCD_Writ_Bus_SPI (buf_4x_line, ((disp_x_size + 1) * 4));
-            }
-          if ((disp_y_size + 1) % 2)
-            UTFT_LCD_Writ_Bus_SPI (buf_4x_line, ((disp_x_size + 1) * 2));
+          UTFT_LCD_Writ_Bus_SPI (buf_4x_line, i_buf_len);
           }  
         }
       else

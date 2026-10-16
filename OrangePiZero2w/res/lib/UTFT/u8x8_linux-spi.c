@@ -14,7 +14,7 @@
 #include "u8x8_linux-spi.h"
 #include "UTFT.h"
 
-// #define MY_DEBUG // uncomment in for debug flow
+//#define MY_DEBUG // uncomment in for debug flow
 
 uint32_t
 u8x8_byte_linux_spi (u8x8_linux_i2c_t *u8x8_riot_ptr, uint8_t msg, uint32_t arg_int, void *arg_ptr)
@@ -38,11 +38,31 @@ u8x8_byte_linux_spi (u8x8_linux_i2c_t *u8x8_riot_ptr, uint8_t msg, uint32_t arg_
           };
           if (ioctl (u8x8_riot_ptr->file, SPI_IOC_MESSAGE (1), &tr) < 0)
             {
-              fprintf (stderr, "can't write cmd %0x: %s\n",
-                       ((uint8_t *)(arg_ptr))[0], strerror (errno));
+              fprintf (stderr, "can't write cmd %0x: %d bytes, %s \n",
+                       ((uint8_t *)(arg_ptr))[0],arg_int, strerror (errno));
               return (errno);
             }
         }
+      else
+	{
+	u8 *buf = (u8 *)arg_ptr;
+	while (arg_int > 0) {
+	    uint32_t chunk = (arg_int > BUFSIZ_SPI) ? BUFSIZ_SPI : arg_int;
+            struct spi_ioc_transfer tr = {
+              .tx_buf = (unsigned long)(buf),
+              .rx_buf = (unsigned long)u8x8_riot_ptr->rx,
+              .len = chunk,
+            };
+            if (ioctl (u8x8_riot_ptr->file, SPI_IOC_MESSAGE (1), &tr) < 0)
+              {
+                fprintf (stderr, "can't write cmd %0x: %d bytes, %s \n",
+                       ((uint8_t *)(buf))[0],chunk, strerror (errno));
+                return (errno);
+              }
+	    buf     += chunk;
+	    arg_int -= chunk;
+	    }
+	}
       break;
     case U8X8_MSG_BYTE_INIT:
       // ths open/setup? it seems to be a one-time setup

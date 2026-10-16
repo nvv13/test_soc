@@ -85,7 +85,7 @@ typedef uint32_t dword;
 
 
 
-#define BUFSIZ_SPI 4096
+#define BUFSIZ_SPI 4096  //MAX DMA BUF !!!
 
 /**
  * @brief
